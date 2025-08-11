@@ -13,12 +13,12 @@ export function QueryProvider({ children }: { children: React.ReactNode }) {
             staleTime: 15 * 60 * 1000, // 15 minutes
             gcTime: 30 * 60 * 1000, // 30 minutes
             refetchOnWindowFocus: false,
-            refetchOnMount: false, // 🔥 ป้องกัน refetch เมื่อ mount ใหม่
+            refetchOnMount: false, // ป้องกัน refetch เมื่อ mount ใหม่
             refetchOnReconnect: false,
             retry: 1,
           },
         },
-      })
+      }),
   );
 
   return (

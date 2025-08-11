@@ -1,28 +1,36 @@
+import { timeout } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
 let animeCache: unknown = null;
 let lastAnimeFetch = 0;
 
 export async function GET() {
-  const now = Date.now();
-  const cacheDuration = 15 * 60 * 1000; // 15 นาที
+  await timeout(1000);
 
-  if (!animeCache || now - lastAnimeFetch > cacheDuration) {
-    console.log("Fetching from Jikan API (Anime)...");
-    const res = await fetch("https://api.jikan.moe/v4/top/anime?limit=5");
+  try {
+    const now = Date.now();
+    const cacheDuration = 15 * 60 * 1000; // 15 นาที
 
-    if (!res.ok) {
-      return NextResponse.json(
-        { error: "Failed to fetch from Jikan API" },
-        { status: res.status }
-      );
+    if (!animeCache || now - lastAnimeFetch > cacheDuration) {
+      const res = await fetch("https://api.jikan.moe/v4/top/anime?limit=5");
+
+      if (!res.ok) {
+        return NextResponse.json(
+          { error: "Failed to fetch from Jikan API" },
+          { status: res.status },
+        );
+      }
+
+      animeCache = await res.json();
+      lastAnimeFetch = now;
     }
 
-    animeCache = await res.json();
-    lastAnimeFetch = now;
-  } else {
-    console.log("Serving from cache (Anime)...");
+    return NextResponse.json(animeCache);
+  } catch (error) {
+    console.error("Error fetching top anime:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch top anime" },
+      { status: 500 },
+    );
   }
-
-  return NextResponse.json(animeCache);
 }

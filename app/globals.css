@@ -175,6 +175,21 @@
   @apply mt-14 mb-4 text-[#adc0d2] text-[15px] font-bold tracking-wider uppercase;
 }
 
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.popup-in {
+  animation: fade-in 400ms ease-out forwards;
+}
+
 @keyframes fade-slide-up {
   0% {
     opacity: 0;

@@ -1,15 +1,47 @@
 export const fetchTopAnime = async () => {
-  const response = await fetch("/api/top-anime");
-  if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-  const result = await response.json();
-  return result.data || [];
+  try {
+    const response = await fetch("/api/top-anime");
+
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+    const result = await response.json();
+    console.log("Anime", result.data);
+    return result.data || [];
+  } catch (error) {
+    console.error("Error fetching top anime:", error);
+    return [];
+  }
 };
 
 export const fetchTopManga = async () => {
-  const response = await fetch("/api/top-manga");
-  if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-  const result = await response.json();
-  return result.data || [];
+  try {
+    const response = await fetch("/api/top-manga");
+
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+    const result = await response.json();
+    return result.data || [];
+  } catch (error) {
+    console.error("Error fetching top manga:", error);
+    return [];
+  }
+};
+
+export const fetchTopCharacter = async () => {
+  try {
+    const response = await fetch("/api/top-character");
+
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+    const result = await response.json();
+
+    console.log("Character", result.data);
+
+    return result.data || [];
+  } catch (error) {
+    console.error("Error fetching top character:", error);
+    return [];
+  }
 };
 
 // export const fetchTopAnime = async (): Promise<AnimeData[]> => {

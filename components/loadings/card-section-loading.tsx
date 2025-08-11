@@ -1,6 +1,6 @@
 import { Skeleton } from "../ui/skeleton";
 
-export default function CardAnimeLoading({
+export default function CardSectionLoading({
   textHeader,
 }: {
   textHeader: string;
@@ -12,10 +12,10 @@ export default function CardAnimeLoading({
         {Array.from({ length: 5 }).map((_, index) => (
           <div
             key={index}
-            className="relative rounded-lg overflow-hidden border"
+            className="popup-in relative animate-pulse overflow-hidden rounded-lg border"
           >
-            <Skeleton className="w-full aspect-[5/8]" />
-            <div className="px-3 pt-3 space-y-2 mb-[38px]">
+            <Skeleton className="aspect-[5/8] w-full" />
+            <div className="mb-[38px] space-y-2 px-3 pt-3">
               <Skeleton className="h-4 w-3/4" />
               <Skeleton className="h-3 w-1/6" />
             </div>
