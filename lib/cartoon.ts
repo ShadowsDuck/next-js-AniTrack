@@ -5,7 +5,6 @@ export const fetchTopAnime = async () => {
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
     const result = await response.json();
-    console.log("Anime", result.data);
     return result.data || [];
   } catch (error) {
     console.error("Error fetching top anime:", error);
@@ -34,8 +33,6 @@ export const fetchTopCharacter = async () => {
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
     const result = await response.json();
-
-    console.log("Character", result.data);
 
     return result.data || [];
   } catch (error) {

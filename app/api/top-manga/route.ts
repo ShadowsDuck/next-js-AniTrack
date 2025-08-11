@@ -1,35 +1,26 @@
 import { timeout } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
-let mangaCache: unknown = null;
-let lastMangaFetch = 0;
-
 export async function GET() {
-  await timeout(1000);
-
   try {
-    const now = Date.now();
-    const cacheDuration = 15 * 60 * 1000; // 15 นาที
+    await timeout(700);
+    // Next.js จะ cache fetch request นี้ให้อัตโนมัติ
+    const res = await fetch("https://api.jikan.moe/v4/top/manga?limit=5", {
+      next: {
+        revalidate: 900, // cache 15 นาที
+      },
+    });
 
-    if (!mangaCache || now - lastMangaFetch > cacheDuration) {
-      const res = await fetch("https://api.jikan.moe/v4/top/manga?limit=5");
-
-      if (!res.ok) {
-        return NextResponse.json(
-          { error: "Failed to fetch from Jikan API" },
-          { status: res.status },
-        );
-      }
-
-      mangaCache = await res.json();
-      lastMangaFetch = now;
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
     }
 
-    return NextResponse.json(mangaCache);
+    const data = await res.json();
+    return NextResponse.json(data);
   } catch (error) {
     console.error("Error fetching top manga:", error);
     return NextResponse.json(
-      { error: "Failed to fetch top manga" },
+      { error: "Failed to fetch manga" },
       { status: 500 },
     );
   }

@@ -22,17 +22,14 @@ export default function CharacterCard({
   return (
     <>
       <h1 className="card-text-header">{textHeader}</h1>
-      <div className="mb-[28px] grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+      <div className="card-layout">
         {uniqueCharacterList.map((character, index) => {
           return (
-            <div
-              key={character.mal_id}
-              className="relative cursor-pointer overflow-hidden rounded-lg border transition-transform duration-200 hover:scale-[1.02] hover:transform"
-            >
-              <div className="animate-in fade-in duration-700">
-                <div className="absolute top-2 right-2 z-10 flex items-center rounded-md bg-black/70 px-2 py-1 text-xs text-white">
+            <div key={character.mal_id} className="card-item">
+              <div className="card-animate">
+                <div className="card-icon">
                   <Image
-                    src="/images/heart.svg"
+                    src="/icons/heart.svg"
                     width={12}
                     height={12}
                     alt="Heart"
@@ -54,11 +51,9 @@ export default function CharacterCard({
                   />
                 )}
 
-                <div className="space-y-1 px-3 py-3">
-                  <h3 className="line-clamp-2 text-sm font-semibold">
-                    {character.name || ""}
-                  </h3>
-                  <p className="text-muted-foreground text-[12px]">Character</p>
+                <div className="card-text-layout">
+                  <h3 className="card-text-name">{character.name || ""}</h3>
+                  <p className="card-text-detail">Character</p>
                 </div>
               </div>
             </div>

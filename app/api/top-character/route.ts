@@ -1,37 +1,26 @@
 import { timeout } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
-let characterCache: unknown = null;
-let lastCharacterFetch = 0;
-
 export async function GET() {
-  await timeout(1000);
-
   try {
-    const now = Date.now();
-    const cacheDuration = 15 * 60 * 1000; // 15 นาที
+    await timeout(700);
+    // Next.js จะ cache fetch request นี้ให้อัตโนมัติ
+    const res = await fetch("https://api.jikan.moe/v4/top/characters?limit=5", {
+      next: {
+        revalidate: 900, // cache 15 นาที
+      },
+    });
 
-    if (!characterCache || now - lastCharacterFetch > cacheDuration) {
-      const res = await fetch(
-        "https://api.jikan.moe/v4/top/characters?limit=5",
-      );
-
-      if (!res.ok) {
-        return NextResponse.json(
-          { error: "Failed to fetch from Jikan API" },
-          { status: res.status },
-        );
-      }
-
-      characterCache = await res.json();
-      lastCharacterFetch = now;
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
     }
 
-    return NextResponse.json(characterCache);
+    const data = await res.json();
+    return NextResponse.json(data);
   } catch (error) {
-    console.error("Error fetching top character:", error);
+    console.error("Error fetching top characters:", error);
     return NextResponse.json(
-      { error: "Failed to fetch top character" },
+      { error: "Failed to fetch characters" },
       { status: 500 },
     );
   }
