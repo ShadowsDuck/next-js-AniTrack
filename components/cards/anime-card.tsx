@@ -1,7 +1,5 @@
 "use client";
 import { useUniqueList } from "@/lib/unique-list";
-// import { useQueries } from "@tanstack/react-query";
-// import { fetchAnimeEpisodesQuery } from "@/lib/queryOptions/fetchData";
 import Image from "next/image";
 import React from "react";
 import CardSectionLoading from "../loadings/card-section-loading";
@@ -12,11 +10,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Badge } from "../ui/badge";
-import {
-  Status,
-  StatusIndicator,
-  StatusLabel,
-} from "@/components/ui/shadcn-io/status";
+import { Status, StatusIndicator } from "@/components/ui/shadcn-io/status";
+import { Frown, Meh, Smile } from "lucide-react";
 
 interface AnimeCardProps {
   animeList?: AnimeData[];
@@ -27,49 +22,52 @@ export default function AnimeCard({ animeList, isPending }: AnimeCardProps) {
   const uniqueAnimeList = useUniqueList(animeList);
   const textHeader = "Top Anime of all time";
 
-  // Fetch episodes for each anime
-  // const episodeQueries = useQueries({
-  //   queries:
-  //     uniqueAnimeList?.map((anime) =>
-  //       fetchAnimeEpisodesQuery(anime.mal_id.toString()),
-  //     ) || [],
-  // });
-  // keyword โหลดข้อมูลเฉพาะตอน hover
-
   if (isPending) {
     return <CardSectionLoading textHeader={textHeader} />;
   }
 
   const getStatusBadge = (status: string) => {
-    switch (status) {
-      case "Finished Airing":
-        return (
-          <Badge variant="finish">
-            <Status status="online">
-              <StatusIndicator />
-            </Status>
-            Complete
-          </Badge>
-        );
-      case "Currently Airing":
-        return (
-          <Badge variant="airing">
-            <Status status="degraded">
-              <StatusIndicator />
-            </Status>
-            Airing
-          </Badge>
-        );
-      default:
-        return (
-          <Badge variant="not_yet_aired">
-            <Status status="offline">
-              <StatusIndicator />
-            </Status>
-            Not Yet Aired
-          </Badge>
-        );
-    }
+    const config = {
+      "Currently Airing": {
+        variant: "airing" as const, // as const คือเป็นค่านี้เสมอไม่เปลี่ยนแปลง เพื่อให้ typescript รู้
+        indicator: "degraded" as const,
+        title: "Airing",
+      },
+      "Finished Airing": {
+        variant: "finish" as const,
+        indicator: "online" as const,
+        title: "Completed",
+      },
+    }[status] || {
+      variant: "not_yet_aired" as const,
+      indicator: "offline" as const,
+      title: "Not yet aired",
+    };
+
+    return (
+      <Badge variant={config.variant}>
+        <Status status={config.indicator}>
+          <StatusIndicator />
+        </Status>
+        {config.title}
+      </Badge>
+    );
+  };
+
+  const getScoreEmoji = (score: number) => {
+    const mood = score >= 7.5 ? "good" : score >= 5.5 ? "ok" : "bad";
+    const { emoji } = {
+      good: { emoji: <Smile className="text-[#7fdc56]" size={22} /> },
+      ok: { emoji: <Meh className="text-[#f79a63]" size={22} /> },
+      bad: { emoji: <Frown className="text-[#eb5e76]" size={22} /> },
+    }[mood];
+
+    return (
+      <div className="flex flex-row items-center gap-1.5">
+        {emoji}
+        <p className="text-base font-semibold">{(score * 10).toFixed(0)}%</p>
+      </div>
+    );
   };
 
   return (
@@ -77,11 +75,7 @@ export default function AnimeCard({ animeList, isPending }: AnimeCardProps) {
       <h1 className="card-text-header">{textHeader}</h1>
       <div className="card-layout">
         <TooltipProvider>
-          {uniqueAnimeList.map((anime, index) => {
-            // Get episodes data for this specific anime
-            // const episodeData = episodeQueries[index]?.data || [];
-            // const isEpisodesPending = episodeQueries[index]?.isPending;
-
+          {uniqueAnimeList.map((anime) => {
             return (
               <Tooltip key={anime.mal_id} disableHoverableContent>
                 <TooltipTrigger asChild>
@@ -99,9 +93,6 @@ export default function AnimeCard({ animeList, isPending }: AnimeCardProps) {
                               aspectRatio: "180/265",
                               objectFit: "cover",
                             }}
-                            priority={index < 4}
-                            placeholder="blur"
-                            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                           />
                         )}
 
@@ -119,44 +110,39 @@ export default function AnimeCard({ animeList, isPending }: AnimeCardProps) {
                   sideOffset={0}
                   align="start"
                   alignOffset={10}
-                  className="bg-hover"
+                  className="tooltip-hover"
                 >
-                  <div className="flex h-auto w-[320px] flex-col p-3 text-[#adc0d2]">
+                  <div className="tooltip-layout">
                     {/* Title */}
-                    <p className="line-clamp-1 text-base font-bold">
-                      {anime.title || ""}
-                    </p>
+                    <div className="tooltip-title-layout">
+                      <p className="tooltip-title-text">{anime.title || ""}</p>
+                      <div className="tooltip-score">
+                        {getScoreEmoji(anime.score)}
+                      </div>
+                    </div>
 
                     {/* Status */}
-                    <p className="text-[15px] font-bold">
-                      {anime.status === "Finished Airing" &&
-                        (anime.season
-                          ? `${anime?.season?.replace(/^./, (char) =>
-                              char.toUpperCase(),
-                            )} ${anime?.aired?.from?.split("-")[0]}`
-                          : `Finished Airing ${anime?.aired?.from?.split("-")[0]}`)}
-
-                      {anime.status === "Currently Airing" &&
-                        (anime.episodes ? "Currently Airing" : `TBA`)}
-                    </p>
+                    <div className="tooltip-status">
+                      {getStatusBadge(anime.status)}
+                    </div>
 
                     {/* Studio */}
-                    <p className="text-primary mt-4 text-[13px] font-bold">
+                    <p className="tooltip-studio">
                       {anime.studios[0]?.name || "Anime Details"}
                     </p>
 
                     {/* Type */}
-                    <p className="text-muted-foreground mt-1 text-[13px] font-semibold">
+                    <p className="tooltip-type">
                       {`${anime.type === "TV" ? "TV Show" : anime.type}\xa0\xa0•\xa0\xa0${anime.episodes} episodes` ||
                         "Anime Details"}
                     </p>
 
                     {/* Genres */}
                     {anime.genres?.length > 0 && (
-                      <div className="mt-4 flex flex-row gap-2">
+                      <div className="tooltip-genres-layout">
                         {anime.genres.slice(0, 3).map((genre, index) => (
                           <Badge key={index} variant="genres">
-                            <p className="text-[10px]">{genre.name}</p>
+                            <p className="tooltip-genres-text">{genre.name}</p>
                           </Badge>
                         ))}
                       </div>

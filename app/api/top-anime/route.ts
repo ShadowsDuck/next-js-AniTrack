@@ -6,7 +6,7 @@ export async function GET() {
     await timeout(700);
     // Next.js จะ cache fetch request นี้ให้อัตโนมัติ
     const res = await fetch(
-      "https://api.jikan.moe/v4/top/anime?page=1&limit=24",
+      "https://api.jikan.moe/v4/top/anime?page=1&limit=6",
       {
         next: {
           revalidate: 900, // cache 15 นาที

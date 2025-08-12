@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const badgeVariants = cva(
-  "inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
+  "inline-flex items-center justify-center rounded-xl border px-3 py-0.5 text-xs font-semibold w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
   {
     variants: {
       variant: {
@@ -17,14 +17,15 @@ const badgeVariants = cva(
           "border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
           "text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
-        genres:
-          "border-transparent bg-ring text-primary-foreground/90 [a&]:hover:bg-ring/90 font-bold",
+        genres: "border-transparent bg-[#01c3d5] text-white",
         finish:
-          "bg-emerald-600/10 dark:bg-emerald-600/20 hover:bg-emerald-600/10 text-emerald-500 border-emerald-600/60 shadow-none rounded-lg pr-2.5 pl-1",
+          "bg-gradient-to-r from-emerald-500/20 to-green-500/20 backdrop-blur-sm border border-emerald-500/30 text-emerald-300 shadow-lg shadow-emerald-500/10 pr-3.5 pl-0 text-[11px] leading-tight",
         airing:
-          "bg-amber-600/10 dark:bg-amber-600/20 hover:bg-amber-600/10 text-amber-500 border-amber-600/60 shadow-none rounded-lg pr-2.5 pl-1",
+          "bg-gradient-to-r from-amber-500/20 to-orange-500/20 backdrop-blur-sm border border-amber-500/30 text-amber-300 shadow-lg shadow-amber-500/10 pr-3.5 pl-0 text-[11px] leading-tight",
         not_yet_aired:
-          "bg-red-600/10 dark:bg-red-600/20 hover:bg-red-600/10 text-red-500 border-red-600/60 shadow-none rounded-lg pr-2.5 pl-1",
+          "bg-gradient-to-r from-red-500/20 to-pink-600/20 backdrop-blur-sm border border-red-500/30 text-red-300 shadow-lg shadow-red-500/10 pr-3.5 pl-0 text-[11px] leading-tight",
+        rating:
+          "bg-gradient-to-r from-amber-500/20 to-orange-500/20 backdrop-blur-sm border border-amber-500/30 text-amber-300 shadow-lg shadow-amber-500/10 pr-3.5 pl-0 text-[11px] leading-tight",
       },
     },
     defaultVariants: {

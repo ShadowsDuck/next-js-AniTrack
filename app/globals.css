@@ -189,7 +189,7 @@
 }
 
 .card-text-header {
-  @apply mt-14 mb-4 text-[15px] font-bold tracking-wider text-[#adc0d2] uppercase;
+  @apply mt-14 mb-4 text-[15px] font-semibold tracking-wider text-[#adc0d2] uppercase;
 }
 
 .card-layout {
@@ -198,6 +198,10 @@
 
 .card-item {
   @apply relative cursor-pointer overflow-hidden;
+}
+
+.card-item:hover .card-text-name {
+  @apply text-[#75e1f0];
 }
 
 .card-animate {
@@ -214,6 +218,46 @@
 
 .card-text-detail {
   @apply text-muted-foreground text-[12px];
+}
+
+.tooltip-hover {
+  @apply from-hover rounded-xl bg-gradient-to-br to-slate-800/95 shadow-2xl shadow-black/50 backdrop-blur-xl;
+}
+
+.tooltip-layout {
+  @apply flex h-auto w-[320px] flex-col p-3 text-[#adc0d2];
+}
+
+.tooltip-title-layout {
+  @apply grid grid-cols-3;
+}
+
+.tooltip-title-text {
+  @apply col-span-2 line-clamp-2 text-base font-semibold;
+}
+
+.tooltip-score {
+  @apply flex justify-end self-start;
+}
+
+.tooltip-status {
+  @apply mt-2;
+}
+
+.tooltip-studio {
+  @apply mt-4 text-[13px] font-semibold text-[#75e1f0];
+}
+
+.tooltip-type {
+  @apply text-muted-foreground mt-1 text-[13px] font-semibold;
+}
+
+.tooltip-genres-layout {
+  @apply mt-4 flex flex-row gap-2 tracking-wider;
+}
+
+.tooltip-genres-text {
+  @apply text-[10px];
 }
 
 @keyframes fade-in {
