@@ -55,6 +55,9 @@
   --shadow-2xl: 0px 4px 8px -1px hsl(0 0% 0% / 0.25);
   --tracking-normal: 0em;
   --spacing: 0.25rem;
+
+  /* Custom */
+  --hover: oklch(0.9881 0 0);
 }
 
 .dark {
@@ -107,6 +110,9 @@
   --shadow-xl:
     0px 4px 8px -1px hsl(0 0% 0% / 0.1), 0px 8px 10px -2px hsl(0 0% 0% / 0.1);
   --shadow-2xl: 0px 4px 8px -1px hsl(0 0% 0% / 0.25);
+
+  /* Custom */
+  --hover: oklch(0.2374 0.0325 258.29);
 }
 
 @theme inline {
@@ -160,6 +166,9 @@
   --shadow-lg: var(--shadow-lg);
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
+
+  /* Custom */
+  --color-hover: var(--hover);
 }
 
 @layer base {
@@ -169,6 +178,14 @@
   body {
     @apply bg-background text-foreground;
   }
+  button,
+  [role="button"] {
+    cursor: pointer;
+  }
+  button:disabled,
+  [role="button"]:disabled {
+    cursor: default;
+  }
 }
 
 .card-text-header {
@@ -176,27 +193,23 @@
 }
 
 .card-layout {
-  @apply mb-[28px] grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5;
+  @apply mb-[28px] grid grid-cols-2 gap-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6;
 }
 
 .card-item {
-  @apply relative cursor-pointer overflow-hidden rounded-lg border transition-transform duration-200 hover:scale-[1.02] hover:transform;
+  @apply relative cursor-pointer overflow-hidden;
 }
 
 .card-animate {
   @apply animate-in fade-in duration-700;
 }
 
-.card-icon {
-  @apply absolute top-2 right-2 z-10 flex items-center gap-1 rounded-md bg-black/70 px-2 py-1 text-xs text-white;
-}
-
 .card-text-layout {
-  @apply space-y-1 px-3 py-3;
+  @apply space-y-1 py-2;
 }
 
 .card-text-name {
-  @apply line-clamp-2 text-sm font-semibold;
+  @apply line-clamp-2 text-[12px] font-semibold text-[#adc0d2] md:text-sm;
 }
 
 .card-text-detail {

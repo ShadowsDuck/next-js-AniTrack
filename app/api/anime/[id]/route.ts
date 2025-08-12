@@ -1,18 +1,21 @@
 import { timeout } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
-export async function GET() {
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export async function GET({ params }: Props) {
   try {
+    const id = (await params).id;
+
     await timeout(700);
     // Next.js จะ cache fetch request นี้ให้อัตโนมัติ
-    const res = await fetch(
-      "https://api.jikan.moe/v4/top/anime?page=1&limit=24",
-      {
-        next: {
-          revalidate: 900, // cache 15 นาที
-        },
+    const res = await fetch(`https://api.jikan.moe/v4/anime/${id}`, {
+      next: {
+        revalidate: 900, // cache 15 นาที
       },
-    );
+    });
 
     if (!res.ok) {
       throw new Error(`HTTP ${res.status}`);

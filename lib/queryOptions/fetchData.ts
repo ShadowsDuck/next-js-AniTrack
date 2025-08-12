@@ -1,5 +1,10 @@
 import { queryOptions } from "@tanstack/react-query";
-import { fetchTopAnime, fetchTopCharacter, fetchTopManga } from "../cartoon";
+import {
+  fetchAnimeEpisodes,
+  fetchTopAnime,
+  fetchTopCharacter,
+  fetchTopManga,
+} from "../cartoon";
 
 export function fetchTopAnimeQuery() {
   return queryOptions({
@@ -19,5 +24,13 @@ export function fetchTopCharacterQuery() {
   return queryOptions({
     queryKey: ["character", "top"],
     queryFn: fetchTopCharacter,
+  });
+}
+
+export function fetchAnimeEpisodesQuery(id: string) {
+  return queryOptions({
+    queryKey: ["anime", "episodes", id],
+    queryFn: () => fetchAnimeEpisodes({ id }),
+    enabled: !!id,
   });
 }

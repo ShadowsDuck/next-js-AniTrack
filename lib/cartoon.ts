@@ -41,6 +41,25 @@ export const fetchTopCharacter = async () => {
   }
 };
 
+export const fetchAnimeEpisodes = async ({
+  id,
+}: {
+  id: string;
+}): Promise<AnimeData[]> => {
+  try {
+    const response = await fetch(`/api/anime/${id}/episodes`);
+
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+    const result = await response.json();
+
+    return result.data || [];
+  } catch (error) {
+    console.error("Error fetching top character:", error);
+    return [];
+  }
+};
+
 // export const fetchTopAnime = async (): Promise<AnimeData[]> => {
 //   try {
 //     await new Promise((resolve) => setTimeout(resolve, 500));

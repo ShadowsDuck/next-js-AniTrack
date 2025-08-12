@@ -77,6 +77,9 @@ declare interface MangaData extends MediaBase {
 declare interface AnimeData extends MediaBase {
   episodes: number;
   aired: Published;
+  studios: Person[];
+  duration: string;
+  season: string;
 }
 
 declare interface CharacterData {
