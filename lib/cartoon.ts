@@ -1,10 +1,11 @@
 export const fetchTopAnime = async () => {
   try {
-    const response = await fetch("/api/top-anime");
+    const response = await fetch(`${process.env.BASE_URL}/api/top-anime`);
 
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
     const result = await response.json();
+
     return result.data || [];
   } catch (error) {
     console.error("Error fetching top anime:", error);
@@ -14,7 +15,7 @@ export const fetchTopAnime = async () => {
 
 export const fetchTopManga = async () => {
   try {
-    const response = await fetch("/api/top-manga");
+    const response = await fetch(`${process.env.BASE_URL}/api/top-manga`);
 
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
@@ -28,7 +29,7 @@ export const fetchTopManga = async () => {
 
 export const fetchTopCharacter = async () => {
   try {
-    const response = await fetch("/api/top-character");
+    const response = await fetch(`${process.env.BASE_URL}/api/top-character`);
 
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 

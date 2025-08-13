@@ -3,6 +3,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { QueryProvider } from "@/components/query-provider";
 import { Red_Hat_Text } from "next/font/google";
+import { HeroHeader } from "@/components/header";
+import FooterSection from "@/components/footer";
 
 const red = Red_Hat_Text({
   subsets: ["latin"],
@@ -28,7 +30,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <HeroHeader />
             {children}
+            <FooterSection />
           </ThemeProvider>
         </QueryProvider>
       </body>

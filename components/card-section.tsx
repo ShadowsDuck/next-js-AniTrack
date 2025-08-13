@@ -1,38 +1,29 @@
-"use client";
+import AnimeCard from "@/components/cards/anime-card";
+import MangaCard from "@/components/cards/manga-card";
+import CharacterCard from "@/components/cards/character-card";
+import { fetchTopAnime, fetchTopManga, fetchTopCharacter } from "@/lib/cartoon";
 
-import { useQueries } from "@tanstack/react-query";
-import {
-  fetchTopAnimeQuery,
-  fetchTopCharacterQuery,
-  fetchTopMangaQuery,
-} from "@/lib/queryOptions/fetchData";
-import AnimeCard from "./cards/anime-card";
-import MangaCard from "./cards/manga-card";
-import CharacterCard from "./cards/character-card";
+type SectionType = "anime" | "manga" | "character";
 
-export default function CardSection() {
-  const [
-    { data: animeList, isPending: isAnimePending },
-    { data: mangaList, isPending: isMangaPending },
-    { data: characterList, isPending: isCharacterPending },
-  ] = useQueries({
-    queries: [
-      fetchTopAnimeQuery(),
-      fetchTopMangaQuery(),
-      fetchTopCharacterQuery(),
-    ],
-  });
+interface CardSectionProps {
+  type: SectionType;
+}
 
-  return (
-    <div className="mx-auto mb-2 max-w-[85rem] px-4">
-      <AnimeCard animeList={animeList} isPending={isAnimePending} />
+export default async function CardSection({ type }: CardSectionProps) {
+  switch (type) {
+    case "anime":
+      const animeList = await fetchTopAnime();
+      return <AnimeCard animeList={animeList} />;
 
-      <MangaCard mangaList={mangaList} isPending={isMangaPending} />
+    case "manga":
+      const mangaList = await fetchTopManga();
+      return <MangaCard mangaList={mangaList} />;
 
-      <CharacterCard
-        characterList={characterList}
-        isPending={isCharacterPending}
-      />
-    </div>
-  );
+    case "character":
+      const characterList = await fetchTopCharacter();
+      return <CharacterCard characterList={characterList} />;
+
+    default:
+      return null;
+  }
 }

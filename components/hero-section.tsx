@@ -41,7 +41,7 @@ const HeroSection = () => {
           style={{ "--delay": "400ms" } as React.CSSProperties}
         >
           <Button size="lg" className="rounded-xl px-6 text-sm">
-            <Link href="#link">
+            <Link href="/anime">
               <span className="text-nowrap">Browse Anime</span>
             </Link>
           </Button>
@@ -50,7 +50,7 @@ const HeroSection = () => {
             variant="secondary"
             className="rounded-xl px-6 text-sm"
           >
-            <Link href="#link">
+            <Link href="/manga">
               <span className="text-nowrap">Browse Manga</span>
             </Link>
           </Button>

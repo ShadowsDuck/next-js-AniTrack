@@ -1,9 +1,6 @@
-"use client";
-
 import { useUniqueList } from "@/lib/unique-list";
 import Image from "next/image";
 import React from "react";
-import CardSectionLoading from "../loadings/card-section-loading";
 import {
   Tooltip,
   TooltipContent,
@@ -16,16 +13,10 @@ import { Frown, Meh, Smile } from "lucide-react";
 
 interface MangaCardProps {
   mangaList?: MangaData[];
-  isPending?: boolean;
 }
 
-export default function MangaCard({ mangaList, isPending }: MangaCardProps) {
+export default function MangaCard({ mangaList }: MangaCardProps) {
   const uniqueMangaList = useUniqueList(mangaList);
-  const textHeader = "Top Comic of all time";
-
-  if (isPending) {
-    return <CardSectionLoading textHeader={textHeader} />;
-  }
 
   const getStatusBadge = (status: string) => {
     const config = {
@@ -82,95 +73,90 @@ export default function MangaCard({ mangaList, isPending }: MangaCardProps) {
   };
 
   return (
-    <>
-      <h1 className="card-text-header">{textHeader}</h1>
-      <div className="card-layout">
-        <TooltipProvider>
-          {uniqueMangaList.map((manga) => {
-            return (
-              <Tooltip key={manga.mal_id} disableHoverableContent>
-                <TooltipTrigger asChild>
-                  <div className="card-item">
-                    <div className="card-animate">
-                      <div>
-                        {manga.images?.jpg?.large_image_url && (
-                          <Image
-                            src={manga.images.jpg.large_image_url}
-                            alt={
-                              manga.title ||
-                              manga.title_english ||
-                              manga.title_japanese ||
-                              "Manga Image"
-                            }
-                            width={180}
-                            height={265}
-                            className="w-full rounded-lg object-cover"
-                            style={{
-                              aspectRatio: "180/265",
-                              objectFit: "cover",
-                            }}
-                          />
-                        )}
+    <div className="card-layout">
+      <TooltipProvider>
+        {uniqueMangaList.map((manga) => {
+          return (
+            <Tooltip key={manga.mal_id} disableHoverableContent>
+              <TooltipTrigger asChild>
+                <div className="card-item">
+                  <div className="card-animate">
+                    <div>
+                      {manga.images?.jpg?.large_image_url && (
+                        <Image
+                          src={manga.images.jpg.large_image_url}
+                          alt={
+                            manga.title ||
+                            manga.title_english ||
+                            manga.title_japanese ||
+                            "Manga Image"
+                          }
+                          width={180}
+                          height={265}
+                          className="w-full rounded-lg object-cover"
+                          style={{
+                            aspectRatio: "180/265",
+                            objectFit: "cover",
+                          }}
+                        />
+                      )}
 
-                        <div className="card-text-layout">
-                          <h3 className="card-text-name">
-                            {manga.title || ""}
-                          </h3>
-                        </div>
+                      <div className="card-text-layout">
+                        <h3 className="card-text-name">{manga.title || ""}</h3>
                       </div>
                     </div>
                   </div>
-                </TooltipTrigger>
-                <TooltipContent
-                  side="right"
-                  sideOffset={0}
-                  align="start"
-                  alignOffset={10}
-                  className="tooltip-hover"
-                >
-                  <div className="tooltip-layout">
-                    {/* Title */}
-                    <div className="tooltip-title-layout">
-                      <p className="tooltip-title-text">
-                        {manga.title || "Title"}
-                      </p>
-                      <div className="tooltip-score">
-                        {getScoreEmoji(manga.score) || ""}
-                      </div>
-                    </div>
-
-                    {/* Status */}
-                    <div className="tooltip-status">
-                      {getStatusBadge(manga.status) || "Status"}
-                    </div>
-
-                    {/* Author */}
-                    <p className="tooltip-studio">
-                      {manga.authors[0]?.name || "Author"}
+                </div>
+              </TooltipTrigger>
+              <TooltipContent
+                side="right"
+                sideOffset={0}
+                align="start"
+                alignOffset={10}
+                className="tooltip-hover"
+              >
+                <div className="tooltip-layout">
+                  {/* Title */}
+                  <div className="tooltip-title-layout">
+                    <p className="tooltip-title-text">
+                      {manga.title || "Title"}
                     </p>
-
-                    {/* Type */}
-                    <p className="tooltip-type">
-                      {`${manga.type} ${manga.chapters ? `\xa0\xa0•\xa0\xa0${manga.chapters} chapters` : ""}`}
-                    </p>
-
-                    {/* Genres */}
-                    {manga.genres?.length > 0 && (
-                      <div className="tooltip-genres-layout">
-                        {manga.genres.slice(0, 3).map((genre, index) => (
-                          <Badge key={index} variant="genres">
-                            <p className="tooltip-genres-text">{genre.name}</p>
-                          </Badge>
-                        ))}
-                      </div>
-                    )}
+                    <div className="tooltip-score">
+                      {getScoreEmoji(manga.score) || ""}
+                    </div>
                   </div>
-                </TooltipContent>
-              </Tooltip>
-            );
-          })}
-        </TooltipProvider>
-      </div>
-    </>
+
+                  {/* Status */}
+                  <div className="tooltip-status">
+                    {getStatusBadge(manga.status) || "Status"}
+                  </div>
+
+                  {/* Author */}
+                  <p className="tooltip-studio">
+                    {manga.authors[0]?.name || "Author"}
+                  </p>
+
+                  {/* Type */}
+                  <p className="tooltip-type">
+                    {`${manga.type} ${manga.chapters ? `\xa0\xa0•\xa0\xa0${manga.chapters} chapters` : ""}`}
+                  </p>
+
+                  {/* Genres */}
+                  {manga.genres?.length > 0 && (
+                    <div className="tooltip-genres-layout">
+                      {manga.genres.slice(0, 3).map((genre, index) => (
+                        <Badge key={index} variant="genres">
+                          <p className="tooltip-genres-text">{genre.name}</p>
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </TooltipContent>
+            </Tooltip>
+          );
+        })}
+      </TooltipProvider>
+    </div>
   );
 }
