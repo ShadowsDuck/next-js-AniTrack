@@ -1,15 +1,16 @@
-import { timeout } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    await timeout(700);
     // Next.js จะ cache fetch request นี้ให้อัตโนมัติ
-    const res = await fetch("https://api.jikan.moe/v4/top/manga?limit=5", {
-      next: {
-        revalidate: 900, // cache 15 นาที
+    const res = await fetch(
+      "https://api.jikan.moe/v4/top/manga?page=1&limit=6",
+      {
+        next: {
+          revalidate: 900, // cache 15 นาที
+        },
       },
-    });
+    );
 
     if (!res.ok) {
       throw new Error(`HTTP ${res.status}`);
