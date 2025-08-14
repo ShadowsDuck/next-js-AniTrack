@@ -1,7 +1,11 @@
 import AnimeCard from "@/components/cards/anime-card";
 import MangaCard from "@/components/cards/manga-card";
 import CharacterCard from "@/components/cards/character-card";
-import { fetchTopAnime, fetchTopManga, fetchTopCharacter } from "@/lib/cartoon";
+import {
+  fetchTopAnime,
+  fetchTopCharacter,
+  fetchTopManga,
+} from "@/server/cartoon";
 
 type SectionType = "anime" | "manga" | "character";
 

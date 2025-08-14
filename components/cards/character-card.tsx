@@ -28,11 +28,11 @@ export default function CharacterCard({ characterList }: CharacterCardProps) {
 
   return (
     <div className="card-layout">
-      <TooltipProvider>
-        {uniqueCharacterList.map((character) => {
-          return (
-            <Tooltip key={character.mal_id} disableHoverableContent>
-              <TooltipTrigger asChild>
+      <TooltipProvider delayDuration={0}>
+        {uniqueCharacterList.map((character) => (
+          <Tooltip key={character.mal_id} disableHoverableContent>
+            <TooltipTrigger asChild>
+              <div>
                 <div className="card-item">
                   <div className="card-animate">
                     <div>
@@ -58,58 +58,56 @@ export default function CharacterCard({ characterList }: CharacterCardProps) {
                     </div>
                   </div>
                 </div>
-              </TooltipTrigger>
-              <TooltipContent
-                side="right"
-                sideOffset={0}
-                align="start"
-                alignOffset={10}
-                className="tooltip-hover"
-              >
-                <div className="tooltip-layout">
-                  {/* Title */}
-                  <div className="tooltip-title-layout">
-                    <div className="col-span-2">
-                      <p className="line-clamp-1 text-base font-semibold">
-                        {character.name || "Name"}
-                      </p>
-                      <p className="line-clamp-1 text-base font-semibold">
-                        {character.name_kanji && character.name_kanji}
-                      </p>
-                    </div>
-                    <div className="tooltip-score">
-                      {/* Favorites */}
-                      {character.favorites && (
-                        <div className="flex flex-row items-center gap-1.5">
-                          <Heart
-                            className="fill-red-500 text-red-500"
-                            size={18}
-                          />
-                          <p className="text-base font-semibold">
-                            {formatFavorites(character.favorites)}
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  </div>
+              </div>
+            </TooltipTrigger>
 
-                  {/* Nicknames */}
-                  {character.nicknames?.length > 0 && (
-                    <div className="tooltip-genres-layout">
-                      {character.nicknames
-                        .slice(0, 2)
-                        .map((nickname, index) => (
-                          <Badge key={index} variant="genres">
-                            <p className="tooltip-genres-text">{nickname}</p>
-                          </Badge>
-                        ))}
-                    </div>
-                  )}
+            <TooltipContent
+              side="right"
+              sideOffset={0}
+              align="start"
+              alignOffset={10}
+              className="tooltip-hover"
+            >
+              <div className="tooltip-layout">
+                <div className="tooltip-title-layout">
+                  <div className="col-span-2">
+                    <p className="line-clamp-1 text-base font-semibold">
+                      {character.name || "Name"}
+                    </p>
+                    {character.name_kanji && (
+                      <p className="line-clamp-1 text-base font-semibold">
+                        {character.name_kanji}
+                      </p>
+                    )}
+                  </div>
+                  <div className="tooltip-score">
+                    {character.favorites && (
+                      <div className="flex flex-row items-center gap-1.5">
+                        <Heart
+                          className="fill-red-500 text-red-500"
+                          size={18}
+                        />
+                        <p className="text-base font-semibold">
+                          {formatFavorites(character.favorites)}
+                        </p>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </TooltipContent>
-            </Tooltip>
-          );
-        })}
+
+                {character.nicknames?.length > 0 && (
+                  <div className="tooltip-genres-layout">
+                    {character.nicknames.slice(0, 2).map((nickname, index) => (
+                      <Badge key={index} variant="genres">
+                        <p className="tooltip-genres-text">{nickname}</p>
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </TooltipContent>
+          </Tooltip>
+        ))}
       </TooltipProvider>
     </div>
   );

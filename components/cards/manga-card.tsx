@@ -21,7 +21,7 @@ export default function MangaCard({ mangaList }: MangaCardProps) {
   const getStatusBadge = (status: string) => {
     const config = {
       Finished: {
-        variant: "finish" as const, // as const คือเป็นค่านี้เสมอไม่เปลี่ยนแปลง เพื่อให้ typescript รู้
+        variant: "finish" as const,
         indicator: "online" as const,
         title: "Finished",
       },
@@ -74,11 +74,11 @@ export default function MangaCard({ mangaList }: MangaCardProps) {
 
   return (
     <div className="card-layout">
-      <TooltipProvider>
-        {uniqueMangaList.map((manga) => {
-          return (
-            <Tooltip key={manga.mal_id} disableHoverableContent>
-              <TooltipTrigger asChild>
+      <TooltipProvider delayDuration={0}>
+        {uniqueMangaList.map((manga) => (
+          <Tooltip key={manga.mal_id} disableHoverableContent>
+            <TooltipTrigger asChild>
+              <div>
                 <div className="card-item">
                   <div className="card-animate">
                     <div>
@@ -107,55 +107,49 @@ export default function MangaCard({ mangaList }: MangaCardProps) {
                     </div>
                   </div>
                 </div>
-              </TooltipTrigger>
-              <TooltipContent
-                side="right"
-                sideOffset={0}
-                align="start"
-                alignOffset={10}
-                className="tooltip-hover"
-              >
-                <div className="tooltip-layout">
-                  {/* Title */}
-                  <div className="tooltip-title-layout">
-                    <p className="tooltip-title-text">
-                      {manga.title || "Title"}
-                    </p>
-                    <div className="tooltip-score">
-                      {getScoreEmoji(manga.score) || ""}
-                    </div>
+              </div>
+            </TooltipTrigger>
+
+            <TooltipContent
+              side="right"
+              sideOffset={0}
+              align="start"
+              alignOffset={10}
+              className="tooltip-hover"
+            >
+              <div className="tooltip-layout">
+                <div className="tooltip-title-layout">
+                  <p className="tooltip-title-text">{manga.title || "Title"}</p>
+                  <div className="tooltip-score">
+                    {getScoreEmoji(manga.score) || ""}
                   </div>
-
-                  {/* Status */}
-                  <div className="tooltip-status">
-                    {getStatusBadge(manga.status) || "Status"}
-                  </div>
-
-                  {/* Author */}
-                  <p className="tooltip-studio">
-                    {manga.authors[0]?.name || "Author"}
-                  </p>
-
-                  {/* Type */}
-                  <p className="tooltip-type">
-                    {`${manga.type} ${manga.chapters ? `\xa0\xa0•\xa0\xa0${manga.chapters} chapters` : ""}`}
-                  </p>
-
-                  {/* Genres */}
-                  {manga.genres?.length > 0 && (
-                    <div className="tooltip-genres-layout">
-                      {manga.genres.slice(0, 3).map((genre, index) => (
-                        <Badge key={index} variant="genres">
-                          <p className="tooltip-genres-text">{genre.name}</p>
-                        </Badge>
-                      ))}
-                    </div>
-                  )}
                 </div>
-              </TooltipContent>
-            </Tooltip>
-          );
-        })}
+                <div className="tooltip-status">
+                  {getStatusBadge(manga.status) || "Status"}
+                </div>
+                <p className="tooltip-studio">
+                  {manga.authors[0]?.name || "Author"}
+                </p>
+                <p className="tooltip-type">
+                  {`${manga.type} ${
+                    manga.chapters
+                      ? `\xa0\xa0•\xa0\xa0${manga.chapters} chapters`
+                      : ""
+                  }`}
+                </p>
+                {manga.genres?.length > 0 && (
+                  <div className="tooltip-genres-layout">
+                    {manga.genres.slice(0, 3).map((genre, index) => (
+                      <Badge key={index} variant="genres">
+                        <p className="tooltip-genres-text">{genre.name}</p>
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </TooltipContent>
+          </Tooltip>
+        ))}
       </TooltipProvider>
     </div>
   );

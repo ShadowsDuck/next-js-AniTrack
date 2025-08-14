@@ -1,10 +1,10 @@
-import { queryOptions } from "@tanstack/react-query";
 import {
   fetchAnimeEpisodes,
   fetchTopAnime,
   fetchTopCharacter,
   fetchTopManga,
-} from "../cartoon";
+} from "@/server/cartoon";
+import { queryOptions } from "@tanstack/react-query";
 
 export function fetchTopAnimeQuery() {
   return queryOptions({

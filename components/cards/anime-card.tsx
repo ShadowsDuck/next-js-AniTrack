@@ -64,11 +64,11 @@ export default function AnimeCard({ animeList }: AnimeCardProps) {
 
   return (
     <div className="card-layout">
-      <TooltipProvider>
-        {uniqueAnimeList.map((anime) => {
-          return (
-            <Tooltip key={anime.mal_id} disableHoverableContent>
-              <TooltipTrigger asChild>
+      <TooltipProvider delayDuration={0}>
+        {uniqueAnimeList.map((anime) => (
+          <Tooltip key={anime.mal_id} disableHoverableContent>
+            <TooltipTrigger asChild>
+              <div>
                 <div className="card-item">
                   <div className="card-animate">
                     <div>
@@ -90,7 +90,6 @@ export default function AnimeCard({ animeList }: AnimeCardProps) {
                           }}
                         />
                       )}
-
                       <div className="card-text-layout">
                         <h3 className="card-text-name">
                           {anime.title || "Title"}
@@ -99,57 +98,48 @@ export default function AnimeCard({ animeList }: AnimeCardProps) {
                     </div>
                   </div>
                 </div>
-              </TooltipTrigger>
-              <TooltipContent
-                side="right"
-                sideOffset={0}
-                align="start"
-                alignOffset={10}
-                className="tooltip-hover"
-              >
-                <div className="tooltip-layout">
-                  {/* Title */}
-                  <div className="tooltip-title-layout">
-                    <p className="tooltip-title-text">
-                      {anime.title || "Title"}
-                    </p>
-                    {/* Score */}
-                    <div className="tooltip-score">
-                      {anime.score && getScoreEmoji(anime.score)}
-                    </div>
+              </div>
+            </TooltipTrigger>
+
+            {/* Tooltip Content */}
+            <TooltipContent
+              side="right"
+              sideOffset={0}
+              align="start"
+              alignOffset={10}
+              className="tooltip-hover"
+            >
+              <div className="tooltip-layout">
+                <div className="tooltip-title-layout">
+                  <p className="tooltip-title-text">{anime.title || "Title"}</p>
+                  <div className="tooltip-score">
+                    {anime.score && getScoreEmoji(anime.score)}
                   </div>
-
-                  {/* Status */}
-                  <div className="tooltip-status">
-                    {getStatusBadge(anime.status) || "Status"}
-                  </div>
-
-                  {/* Studio */}
-                  <p className="tooltip-studio">
-                    {anime.studios[0]?.name || "Studio"}
-                  </p>
-
-                  {/* Type */}
-                  <p className="tooltip-type">
-                    {`${anime.type === "TV" ? "TV Show" : anime.type}\xa0\xa0•\xa0\xa0${anime.episodes} episodes` ||
-                      "Anime Details"}
-                  </p>
-
-                  {/* Genres */}
-                  {anime.genres?.length > 0 && (
-                    <div className="tooltip-genres-layout">
-                      {anime.genres.slice(0, 3).map((genre, index) => (
-                        <Badge key={index} variant="genres">
-                          <p className="tooltip-genres-text">{genre.name}</p>
-                        </Badge>
-                      ))}
-                    </div>
-                  )}
                 </div>
-              </TooltipContent>
-            </Tooltip>
-          );
-        })}
+                <div className="tooltip-status">
+                  {getStatusBadge(anime.status) || "Status"}
+                </div>
+                <p className="tooltip-studio">
+                  {anime.studios[0]?.name || "Studio"}
+                </p>
+                <p className="tooltip-type">
+                  {`${anime.type === "TV" ? "TV Show" : anime.type}  •  ${
+                    anime.episodes
+                  } episodes`}
+                </p>
+                {anime.genres?.length > 0 && (
+                  <div className="tooltip-genres-layout">
+                    {anime.genres.slice(0, 3).map((genre, index) => (
+                      <Badge key={index} variant="genres">
+                        <p className="tooltip-genres-text">{genre.name}</p>
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </TooltipContent>
+          </Tooltip>
+        ))}
       </TooltipProvider>
     </div>
   );

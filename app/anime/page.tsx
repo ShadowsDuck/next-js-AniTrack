@@ -1,5 +1,5 @@
 import AnimeCard from "@/components/cards/anime-card";
-import { fetchTopAnime } from "@/lib/cartoon";
+import { fetchTopAnime } from "@/server/cartoon";
 
 export default async function Page() {
   const animeList = await fetchTopAnime();

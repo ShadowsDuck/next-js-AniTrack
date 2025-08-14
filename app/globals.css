@@ -193,7 +193,7 @@
 }
 
 .page-wrapper-layout {
-  @apply mx-auto max-w-[85rem];
+  @apply mx-auto max-w-[85rem] px-4;
 }
 
 .card-text-header {
