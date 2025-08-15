@@ -16,7 +16,10 @@ interface CardSectionProps {
 export default async function CardSection({ type }: CardSectionProps) {
   switch (type) {
     case "anime":
-      const animeList = await fetchTopAnime();
+      const { animeList } = await fetchTopAnime({
+        page: 1,
+        limit: 6,
+      });
       return <AnimeCard animeList={animeList} />;
 
     case "manga":

@@ -58,6 +58,8 @@
 
   /* Custom */
   --hover: oklch(0.9881 0 0);
+  --text-1: #adc0d2;
+  --text-2: #8ba0b2;
 }
 
 .dark {
@@ -113,6 +115,8 @@
 
   /* Custom */
   --hover: oklch(0.2374 0.0325 258.29);
+  --text-1: #adc0d2;
+  --text-2: #8ba0b2;
 }
 
 @theme inline {
@@ -169,6 +173,8 @@
 
   /* Custom */
   --color-hover: var(--hover);
+  --color-text-1: var(--text-1);
+  --color-text-2: var(--text-2);
 }
 
 @layer base {
@@ -193,7 +199,7 @@
 }
 
 .page-wrapper-layout {
-  @apply mx-auto max-w-[85rem] px-4;
+  @apply mx-auto max-w-[85rem] px-4 pt-16;
 }
 
 .card-text-header {

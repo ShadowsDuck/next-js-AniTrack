@@ -69,17 +69,17 @@ interface MediaBase {
   demographics: Person[];
 }
 
-declare interface MangaData extends MediaBase {
-  chapters: number;
-  volumes: number;
-}
-
 declare interface AnimeData extends MediaBase {
   episodes: number;
   aired: Published;
   studios: Person[];
   duration: string;
   season: string;
+}
+
+declare interface MangaData extends MediaBase {
+  chapters: number;
+  volumes: number;
 }
 
 declare interface CharacterData {
@@ -91,4 +91,15 @@ declare interface CharacterData {
   nicknames: string[];
   favorites: number;
   about: string;
+}
+
+declare interface Pagination {
+  last_visible_page: number;
+  has_next_page: boolean;
+  current_page: number;
+  items: {
+    count: number;
+    total: number;
+    per_page: number;
+  };
 }

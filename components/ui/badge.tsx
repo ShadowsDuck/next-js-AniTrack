@@ -19,13 +19,13 @@ const badgeVariants = cva(
           "text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
         genres: "border-transparent bg-[#01c3d5] text-white",
         finish:
-          "bg-gradient-to-r from-emerald-500/20 to-green-500/20 backdrop-blur-sm border border-emerald-500/30 text-emerald-300 shadow-lg shadow-emerald-500/10 pr-3.5 pl-0 text-[11px] leading-tight",
+          "bg-gradient-to-r from-emerald-500/20 to-green-500/20 border border-emerald-500/30 text-emerald-300 shadow-lg shadow-emerald-500/10 pr-3.5 pl-0 text-[11px] leading-tight",
         airing:
-          "bg-gradient-to-r from-blue-500/20 to-sky-600/20 backdrop-blur-sm border border-blue-500/30 text-blue-300 shadow-lg shadow-blue-500/10 pr-3.5 pl-0 text-[11px] leading-tight",
+          "bg-gradient-to-r from-blue-500/20 to-sky-600/20 border border-blue-500/30 text-blue-300 shadow-lg shadow-blue-500/10 pr-3.5 pl-0 text-[11px] leading-tight",
         not_yet_aired:
-          "bg-gradient-to-r from-red-500/20 to-pink-600/20 backdrop-blur-sm border border-red-500/30 text-red-300 shadow-lg shadow-red-500/10 pr-3.5 pl-0 text-[11px] leading-tight",
+          "bg-gradient-to-r from-red-500/20 to-pink-600/20 border border-red-500/30 text-red-300 shadow-lg shadow-red-500/10 pr-3.5 pl-0 text-[11px] leading-tight",
         hiatus:
-          "bg-gradient-to-r from-amber-500/20 to-orange-500/20 backdrop-blur-sm border border-amber-500/30 text-amber-300 shadow-lg shadow-amber-500/10 pr-3.5 pl-0 text-[11px] leading-tight",
+          "bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30 text-amber-300 shadow-lg shadow-amber-500/10 pr-3.5 pl-0 text-[11px] leading-tight",
       },
     },
     defaultVariants: {

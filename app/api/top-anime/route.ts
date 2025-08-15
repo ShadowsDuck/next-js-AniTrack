@@ -1,10 +1,13 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    // Next.js จะ cache fetch request นี้ให้อัตโนมัติ
-    const res = await fetch(
-      "https://api.jikan.moe/v4/top/anime?page=1&limit=6",
+    const searchParams = request.nextUrl.searchParams;
+    const page = Number(searchParams.get("page")) || 1;
+    const limit = Number(searchParams.get("limit")) || 6;
+
+    const response = await fetch(
+      `https://api.jikan.moe/v4/top/anime?page=${page}&limit=${limit}`,
       {
         next: {
           revalidate: 900, // cache 15 นาที
@@ -12,12 +15,11 @@ export async function GET() {
       },
     );
 
-    if (!res.ok) {
-      throw new Error(`HTTP ${res.status}`);
-    }
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-    const data = await res.json();
-    return NextResponse.json(data);
+    const result: { data: AnimeData[]; pagination: Pagination } =
+      await response.json();
+    return NextResponse.json(result);
   } catch (error) {
     console.error("Error fetching top anime:", error);
     return NextResponse.json(

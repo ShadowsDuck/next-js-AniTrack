@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <div className="page-wrapper-layout">
+      <div className="page-wrapper-layout !pt-8">
         {/* Anime Section */}
         <h1 className="card-text-header">Top Anime of all time</h1>
         <Suspense fallback={<CardSectionLoading />}>

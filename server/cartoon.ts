@@ -1,15 +1,56 @@
-export const fetchTopAnime = async () => {
+export const fetchTopAnime = async ({
+  page,
+  limit,
+}: {
+  page: number;
+  limit: number;
+}) => {
   try {
-    const response = await fetch(`${process.env.BASE_URL}/api/top-anime`);
+    const baseUrl =
+      typeof window === "undefined"
+        ? process.env.BASE_URL // Server-side
+        : ""; // Client-side (relative URL)
 
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const response = await fetch(
+      `${baseUrl}/api/top-anime?page=${page}&limit=${limit}`,
+      {
+        next: {
+          revalidate: 900, // cache 15 นาที
+        },
+      },
+    );
 
-    const result = await response.json();
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
 
-    return result.data || [];
+    const {
+      data: animeList,
+      pagination,
+    }: { data: AnimeData[]; pagination: Pagination } = await response.json();
+
+    return {
+      animeList: animeList || [],
+      pagination: {
+        currentPage: pagination?.current_page || page,
+        perPage: pagination?.items?.per_page || limit,
+        totalItems: pagination?.items?.total || 0,
+        totalPages: pagination?.last_visible_page || 0,
+        hasNextPage: pagination?.has_next_page || false,
+      },
+    };
   } catch (error) {
     console.error("Error fetching top anime:", error);
-    return [];
+    return {
+      animeList: [],
+      pagination: {
+        currentPage: page,
+        perPage: limit,
+        totalItems: 0,
+        totalPages: 0,
+        hasNextPage: false,
+      },
+    };
   }
 };
 

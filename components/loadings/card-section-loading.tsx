@@ -1,9 +1,13 @@
 import { Skeleton } from "../ui/skeleton";
 
-export default function CardSectionLoading() {
+export default function CardSectionLoading({
+  length = 6,
+}: {
+  length?: number;
+}) {
   return (
     <div className="card-layout">
-      {Array.from({ length: 6 }).map((_, index) => (
+      {Array.from({ length: length }).map((_, index) => (
         <div key={index} className="card-item !min-h-[320px]">
           {" "}
           {/* Fixed minimum height */}

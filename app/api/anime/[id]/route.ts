@@ -1,11 +1,11 @@
 import { timeout } from "@/lib/utils";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 type Props = {
   params: Promise<{ id: string }>;
 };
 
-export async function GET({ params }: Props) {
+export async function GET(req: NextRequest, { params }: Props) {
   try {
     const id = (await params).id;
 
