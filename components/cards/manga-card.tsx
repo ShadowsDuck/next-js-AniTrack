@@ -112,7 +112,7 @@ export default function MangaCard({ mangaList }: MangaCardProps) {
 
             <TooltipContent
               side="right"
-              sideOffset={0}
+              sideOffset={10}
               align="start"
               alignOffset={10}
               className="tooltip-hover"

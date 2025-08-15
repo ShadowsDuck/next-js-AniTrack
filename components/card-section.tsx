@@ -23,11 +23,17 @@ export default async function CardSection({ type }: CardSectionProps) {
       return <AnimeCard animeList={animeList} />;
 
     case "manga":
-      const mangaList = await fetchTopManga();
+      const { mangaList } = await fetchTopManga({
+        page: 1,
+        limit: 6,
+      });
       return <MangaCard mangaList={mangaList} />;
 
     case "character":
-      const characterList = await fetchTopCharacter();
+      const { characterList } = await fetchTopCharacter({
+        page: 1,
+        limit: 6,
+      });
       return <CharacterCard characterList={characterList} />;
 
     default:

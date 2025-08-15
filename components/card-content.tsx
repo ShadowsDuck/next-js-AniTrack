@@ -16,76 +16,49 @@ interface CardContentProps {
   type: SectionType;
 }
 
-// function PaginationSection({
-//   currentPage,
-//   pagination,
-//   limit,
-// }: {
-//   currentPage: number;
-//   pagination?: { totalPages: number; totalItems: number };
-//   limit: number;
-// }) {
-//   if (!pagination) return null;
-
-//   return (
-//     <>
-//       <div className="mt-4 text-sm text-gray-600">
-//         Page {currentPage} of {pagination.totalPages} • Total:{" "}
-//         {pagination.totalItems} items
-//       </div>
-
-//       <div className="mt-8">
-//         <PaginationWithLinks
-//           page={currentPage}
-//           pageSize={limit}
-//           totalCount={pagination.totalItems}
-//           navigationMode="router"
-//         />
-//       </div>
-//     </>
-//   );
-// }
-
 export default async function CardContent({
   currentPage,
   limit,
   type,
 }: CardContentProps) {
   const getCardData = async (type: SectionType) => {
-    const config = {
-      anime: {
-        fetch: () => fetchTopAnime({ page: currentPage, limit }),
-        dataKey: "animeList" as const,
-        render: (data: AnimeData[]) => <AnimeCard animeList={data} />,
+    const configs = {
+      anime: async () => {
+        const result = await fetchTopAnime({ page: currentPage, limit });
+        return {
+          data: result.animeList,
+          pagination: result.pagination,
+          component: <AnimeCard animeList={result.animeList} />,
+        };
       },
-      manga: {
-        fetch: () => fetchTopManga(),
-        dataKey: "mangaList" as const,
-        render: (data: MangaData[]) => <MangaCard mangaList={data} />,
+      manga: async () => {
+        const result = await fetchTopManga({ page: currentPage, limit });
+        return {
+          data: result.mangaList,
+          pagination: result.pagination,
+          component: <MangaCard mangaList={result.mangaList} />,
+        };
       },
-      character: {
-        fetch: () => fetchTopCharacter(),
-        dataKey: "characterList" as const,
-        render: (data: CharacterData[]) => (
-          <CharacterCard characterList={data} />
-        ),
+      character: async () => {
+        const result = await fetchTopCharacter({ page: currentPage, limit });
+        return {
+          data: result.characterList,
+          pagination: result.pagination,
+          component: <CharacterCard characterList={result.characterList} />,
+        };
       },
-    }[type];
+    };
 
-    if (!config) {
+    const configFn = configs[type];
+    if (!configFn) {
       throw new Error(`Invalid type: ${type}`);
     }
 
-    const result = await config.fetch();
-    return {
-      data: result[config.dataKey],
-      pagination: result.pagination,
-      render: config.render,
-    };
+    return await configFn();
   };
 
   try {
-    const { data, pagination, render } = await getCardData(type);
+    const { data, pagination, component } = await getCardData(type);
 
     if (!data || data.length === 0) {
       return (
@@ -95,25 +68,24 @@ export default async function CardContent({
 
     return (
       <>
-        {render(data)}
-        <div className="mt-4 text-sm text-gray-600">
-          Page {currentPage} of {pagination?.totalPages} • Total:{" "}
-          {pagination?.totalItems} items
-        </div>
+        {component}
+        {pagination && (
+          <>
+            <div className="mt-4 text-sm text-gray-600">
+              Page {currentPage} of {pagination?.totalPages} • Total:{" "}
+              {pagination?.totalItems?.toLocaleString()} {type}s
+            </div>
 
-        <div className="mt-8">
-          <PaginationWithLinks
-            page={currentPage}
-            pageSize={limit}
-            totalCount={pagination?.totalItems}
-            navigationMode="router"
-          />
-        </div>
-        {/* <PaginationSection
-          currentPage={currentPage}
-          pagination={pagination}
-          limit={limit}
-        /> */}
+            <div className="mt-8">
+              <PaginationWithLinks
+                page={currentPage}
+                pageSize={limit}
+                totalCount={pagination?.totalItems}
+                navigationMode="router"
+              />
+            </div>
+          </>
+        )}
       </>
     );
   } catch {

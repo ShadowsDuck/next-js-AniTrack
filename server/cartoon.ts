@@ -54,53 +54,137 @@ export const fetchTopAnime = async ({
   }
 };
 
-export const fetchTopManga = async () => {
+export const fetchTopManga = async ({
+  page,
+  limit,
+}: {
+  page: number;
+  limit: number;
+}) => {
   try {
-    const response = await fetch(`${process.env.BASE_URL}/api/top-manga`);
+    const baseUrl =
+      typeof window === "undefined"
+        ? process.env.BASE_URL // Server-side
+        : ""; // Client-side (relative URL)
 
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const response = await fetch(
+      `${baseUrl}/api/top-manga?page=${page}&limit=${limit}`,
+      {
+        next: {
+          revalidate: 900, // cache 15 นาที
+        },
+      },
+    );
 
-    const result = await response.json();
-    return result.data || [];
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const {
+      data: mangaList,
+      pagination,
+    }: { data: MangaData[]; pagination: Pagination } = await response.json();
+
+    return {
+      mangaList: mangaList || [],
+      pagination: {
+        currentPage: pagination?.current_page || page,
+        perPage: pagination?.items?.per_page || limit,
+        totalItems: pagination?.items?.total || 0,
+        totalPages: pagination?.last_visible_page || 0,
+        hasNextPage: pagination?.has_next_page || false,
+      },
+    };
   } catch (error) {
     console.error("Error fetching top manga:", error);
-    return [];
+    return {
+      mangaList: [],
+      pagination: {
+        currentPage: page,
+        perPage: limit,
+        totalItems: 0,
+        totalPages: 0,
+        hasNextPage: false,
+      },
+    };
   }
 };
 
-export const fetchTopCharacter = async () => {
-  try {
-    const response = await fetch(`${process.env.BASE_URL}/api/top-character`);
-
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
-    const result = await response.json();
-
-    return result.data || [];
-  } catch (error) {
-    console.error("Error fetching top character:", error);
-    return [];
-  }
-};
-
-export const fetchAnimeEpisodes = async ({
-  id,
+export const fetchTopCharacter = async ({
+  page,
+  limit,
 }: {
-  id: string;
-}): Promise<AnimeData[]> => {
+  page: number;
+  limit: number;
+}) => {
   try {
-    const response = await fetch(`/api/anime/${id}/episodes`);
+    const baseUrl =
+      typeof window === "undefined"
+        ? process.env.BASE_URL // Server-side
+        : ""; // Client-side (relative URL)
 
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const response = await fetch(
+      `${baseUrl}/api/top-character?page=${page}&limit=${limit}`,
+      {
+        next: {
+          revalidate: 900, // cache 15 นาที
+        },
+      },
+    );
 
-    const result = await response.json();
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
 
-    return result.data || [];
+    const {
+      data: characterList,
+      pagination,
+    }: { data: CharacterData[]; pagination: Pagination } =
+      await response.json();
+
+    return {
+      characterList: characterList || [],
+      pagination: {
+        currentPage: pagination?.current_page || page,
+        perPage: pagination?.items?.per_page || limit,
+        totalItems: pagination?.items?.total || 0,
+        totalPages: pagination?.last_visible_page || 0,
+        hasNextPage: pagination?.has_next_page || false,
+      },
+    };
   } catch (error) {
     console.error("Error fetching top character:", error);
-    return [];
+    return {
+      characterList: [],
+      pagination: {
+        currentPage: page,
+        perPage: limit,
+        totalItems: 0,
+        totalPages: 0,
+        hasNextPage: false,
+      },
+    };
   }
 };
+
+// export const fetchAnimeEpisodes = async ({
+//   id,
+// }: {
+//   id: string;
+// }): Promise<AnimeData[]> => {
+//   try {
+//     const response = await fetch(`/api/anime/${id}/episodes`);
+
+//     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+//     const result = await response.json();
+
+//     return result.data || [];
+//   } catch (error) {
+//     console.error("Error fetching top character:", error);
+//     return [];
+//   }
+// };
 
 // export const fetchTopAnime = async (): Promise<AnimeData[]> => {
 //   try {

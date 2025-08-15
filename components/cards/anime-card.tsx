@@ -104,7 +104,7 @@ export default function AnimeCard({ animeList }: AnimeCardProps) {
             {/* Tooltip Content */}
             <TooltipContent
               side="right"
-              sideOffset={0}
+              sideOffset={10}
               align="start"
               alignOffset={10}
               className="tooltip-hover"

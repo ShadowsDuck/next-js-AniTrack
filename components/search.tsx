@@ -3,7 +3,7 @@ import { Input } from "./ui/input";
 
 export default function Search() {
   return (
-    <div className="text-text-2 py-12 text-[13px] font-normal">
+    <div className="text-text-1 py-12 text-[13px] font-normal">
       <div className="relative flex-1">
         <Input
           // id={`input-${id}`}

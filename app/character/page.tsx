@@ -19,7 +19,7 @@ export default async function Page({ searchParams }: PageProps) {
       <Search />
 
       <Suspense key={currentPage} fallback={<CardSectionLoading length={24} />}>
-        <CardContent currentPage={currentPage} limit={limit} type="anime" />
+        <CardContent currentPage={currentPage} limit={limit} type="character" />
       </Suspense>
     </div>
   );

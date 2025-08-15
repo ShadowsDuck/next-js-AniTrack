@@ -58,8 +58,9 @@
 
   /* Custom */
   --hover: oklch(0.9881 0 0);
-  --text-1: #adc0d2;
-  --text-2: #8ba0b2;
+  --text-1: #748899;
+  --text-2: #adc0d2;
+  --text-3: #c9d7e3;
 }
 
 .dark {
@@ -115,8 +116,9 @@
 
   /* Custom */
   --hover: oklch(0.2374 0.0325 258.29);
-  --text-1: #adc0d2;
-  --text-2: #8ba0b2;
+  --text-1: #748899;
+  --text-2: #adc0d2;
+  --text-3: #c9d7e3;
 }
 
 @theme inline {
@@ -175,6 +177,7 @@
   --color-hover: var(--hover);
   --color-text-1: var(--text-1);
   --color-text-2: var(--text-2);
+  --color-text-3: var(--text-3);
 }
 
 @layer base {

@@ -63,7 +63,7 @@ export default function CharacterCard({ characterList }: CharacterCardProps) {
 
             <TooltipContent
               side="right"
-              sideOffset={0}
+              sideOffset={10}
               align="start"
               alignOffset={10}
               className="tooltip-hover"
