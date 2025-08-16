@@ -1,11 +1,5 @@
-import Search from "@/components/search";
-import CardSectionLoading from "@/components/loadings/card-section-loading"; // import Skeleton ของคุณ
+import ContentPageLoading from "@/components/loadings/content-page-loading";
 
 export default function Loading() {
-  return (
-    <div className="page-wrapper-layout">
-      <Search />
-      <CardSectionLoading length={24} />
-    </div>
-  );
+  return <ContentPageLoading />;
 }

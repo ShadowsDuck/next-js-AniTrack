@@ -1,21 +1,22 @@
-export const fetchTopAnime = async ({
+export const fetchAnime = async ({
+  search,
   page,
   limit,
 }: {
+  search?: string;
   page: number;
   limit: number;
 }) => {
   try {
-    const baseUrl =
-      typeof window === "undefined"
-        ? process.env.BASE_URL // Server-side
-        : ""; // Client-side (relative URL)
+    const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
 
     const response = await fetch(
-      `${baseUrl}/api/top-anime?page=${page}&limit=${limit}`,
+      search
+        ? `${baseUrl}/api/anime?q=${encodeURIComponent(search)}&page=${page}&limit=${limit}`
+        : `${baseUrl}/api/anime?page=${page}&limit=${limit}`,
       {
         next: {
-          revalidate: 900, // cache 15 นาที
+          revalidate: 900,
         },
       },
     );
@@ -54,24 +55,25 @@ export const fetchTopAnime = async ({
   }
 };
 
-export const fetchTopManga = async ({
+export const fetchManga = async ({
+  search,
   page,
   limit,
 }: {
+  search?: string;
   page: number;
   limit: number;
 }) => {
   try {
-    const baseUrl =
-      typeof window === "undefined"
-        ? process.env.BASE_URL // Server-side
-        : ""; // Client-side (relative URL)
+    const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
 
     const response = await fetch(
-      `${baseUrl}/api/top-manga?page=${page}&limit=${limit}`,
+      search
+        ? `${baseUrl}/api/manga?q=${encodeURIComponent(search)}&page=${page}&limit=${limit}`
+        : `${baseUrl}/api/top-manga?page=${page}&limit=${limit}`,
       {
         next: {
-          revalidate: 900, // cache 15 นาที
+          revalidate: 900,
         },
       },
     );
@@ -110,24 +112,25 @@ export const fetchTopManga = async ({
   }
 };
 
-export const fetchTopCharacter = async ({
+export const fetchCharacter = async ({
+  search,
   page,
   limit,
 }: {
+  search?: string;
   page: number;
   limit: number;
 }) => {
   try {
-    const baseUrl =
-      typeof window === "undefined"
-        ? process.env.BASE_URL // Server-side
-        : ""; // Client-side (relative URL)
+    const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
 
     const response = await fetch(
-      `${baseUrl}/api/top-character?page=${page}&limit=${limit}`,
+      search
+        ? `${baseUrl}/api/character?q=${encodeURIComponent(search)}&page=${page}&limit=${limit}`
+        : `${baseUrl}/api/top-character?page=${page}&limit=${limit}`,
       {
         next: {
-          revalidate: 900, // cache 15 นาที
+          revalidate: 900,
         },
       },
     );
@@ -186,7 +189,7 @@ export const fetchTopCharacter = async ({
 //   }
 // };
 
-// export const fetchTopAnime = async (): Promise<AnimeData[]> => {
+// export const fetchAnime = async (): Promise<AnimeData[]> => {
 //   try {
 //     await new Promise((resolve) => setTimeout(resolve, 500));
 
@@ -204,7 +207,7 @@ export const fetchTopCharacter = async ({
 //   }
 // };
 
-// export const fetchTopManga = async () => {
+// export const fetchManga = async () => {
 //   try {
 //     await new Promise((resolve) => setTimeout(resolve, 500));
 
@@ -223,7 +226,7 @@ export const fetchTopCharacter = async ({
 // };
 
 // แก้ไข fetchAnimeById function
-// export const fetchTopAnime = async (): Promise<AnimeData[]> => {
+// export const fetchAnime = async (): Promise<AnimeData[]> => {
 //   try {
 //     const response = await fetch(`/api/anime`, {
 //       next: { revalidate: 0 },
@@ -241,7 +244,7 @@ export const fetchTopCharacter = async ({
 //   }
 // };
 
-// export const fetchTopAnime = async (): Promise<AnimeData[]> => {
+// export const fetchAnime = async (): Promise<AnimeData[]> => {
 //   try {
 //     const uniqueItems = new Map<number, AnimeData>();
 //     const limit = 25;

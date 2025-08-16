@@ -9,7 +9,6 @@ export default function CardSectionLoading({
     <div className="card-layout">
       {Array.from({ length: length }).map((_, index) => (
         <div key={index} className="card-item !min-h-[320px]">
-          {" "}
           {/* Fixed minimum height */}
           <div className="card-animate">
             <div>

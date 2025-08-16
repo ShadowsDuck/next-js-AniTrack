@@ -5,6 +5,8 @@ import { QueryProvider } from "@/components/query-provider";
 import { Red_Hat_Text } from "next/font/google";
 import { HeroHeader } from "@/components/header";
 import FooterSection from "@/components/footer";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
+import ScrollToTop from "@/components/scroll-to-top";
 
 const red = Red_Hat_Text({
   subsets: ["latin"],
@@ -24,16 +26,19 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${red.className} antialiased`}>
         <QueryProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <HeroHeader />
-            {children}
-            <FooterSection />
-          </ThemeProvider>
+          <NuqsAdapter>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <ScrollToTop />
+              <HeroHeader />
+              {children}
+              <FooterSection />
+            </ThemeProvider>
+          </NuqsAdapter>
         </QueryProvider>
       </body>
     </html>

@@ -58,6 +58,7 @@
 
   /* Custom */
   --hover: oklch(0.9881 0 0);
+  --search: #151f2e;
   --text-1: #748899;
   --text-2: #adc0d2;
   --text-3: #c9d7e3;
@@ -116,6 +117,7 @@
 
   /* Custom */
   --hover: oklch(0.2374 0.0325 258.29);
+  --search: #151f2e;
   --text-1: #748899;
   --text-2: #adc0d2;
   --text-3: #c9d7e3;
@@ -175,6 +177,7 @@
 
   /* Custom */
   --color-hover: var(--hover);
+  --color-search: var(--search);
   --color-text-1: var(--text-1);
   --color-text-2: var(--text-2);
   --color-text-3: var(--text-3);

@@ -2,21 +2,19 @@ import AnimeCard from "@/components/cards/anime-card";
 import MangaCard from "@/components/cards/manga-card";
 import CharacterCard from "@/components/cards/character-card";
 import { PaginationWithLinks } from "@/components/ui/pagination-with-links";
-import {
-  fetchTopAnime,
-  fetchTopManga,
-  fetchTopCharacter,
-} from "@/server/cartoon";
+import { fetchAnime, fetchManga, fetchCharacter } from "@/server/cartoon";
 
 type SectionType = "anime" | "manga" | "character";
 
 interface CardContentProps {
+  search: string;
   currentPage: number;
   limit: number;
   type: SectionType;
 }
 
 export default async function CardContent({
+  search,
   currentPage,
   limit,
   type,
@@ -24,7 +22,11 @@ export default async function CardContent({
   const getCardData = async (type: SectionType) => {
     const configs = {
       anime: async () => {
-        const result = await fetchTopAnime({ page: currentPage, limit });
+        const result = await fetchAnime({
+          page: currentPage,
+          limit,
+          search,
+        });
         return {
           data: result.animeList,
           pagination: result.pagination,
@@ -32,7 +34,11 @@ export default async function CardContent({
         };
       },
       manga: async () => {
-        const result = await fetchTopManga({ page: currentPage, limit });
+        const result = await fetchManga({
+          page: currentPage,
+          limit,
+          search,
+        });
         return {
           data: result.mangaList,
           pagination: result.pagination,
@@ -40,7 +46,11 @@ export default async function CardContent({
         };
       },
       character: async () => {
-        const result = await fetchTopCharacter({ page: currentPage, limit });
+        const result = await fetchCharacter({
+          page: currentPage,
+          limit,
+          search,
+        });
         return {
           data: result.characterList,
           pagination: result.pagination,
@@ -81,7 +91,7 @@ export default async function CardContent({
                 page={currentPage}
                 pageSize={limit}
                 totalCount={pagination?.totalItems}
-                navigationMode="router"
+                // navigationMode="router"
               />
             </div>
           </>

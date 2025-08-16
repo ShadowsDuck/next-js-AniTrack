@@ -1,29 +1,29 @@
 // import {
 //   fetchAnimeEpisodes,
-//   fetchTopAnime,
-//   fetchTopCharacter,
-//   fetchTopManga,
+//   fetchAnime,
+//   fetchCharacter,
+//   fetchManga,
 // } from "@/server/cartoon";
 // import { queryOptions } from "@tanstack/react-query";
 
-// export function fetchTopAnimeQuery() {
+// export function fetchAnimeQuery() {
 //   return queryOptions({
 //     queryKey: ["anime", "top", page, limit],
-//     queryFn: fetchTopAnime({ page: 1, limit: 24 }),
+//     queryFn: fetchAnime({ page: 1, limit: 24 }),
 //   });
 // }
 
-// export function fetchTopMangaQuery() {
+// export function fetchMangaQuery() {
 //   return queryOptions({
 //     queryKey: ["manga", "top"],
-//     queryFn: fetchTopManga,
+//     queryFn: fetchManga,
 //   });
 // }
 
-// export function fetchTopCharacterQuery() {
+// export function fetchCharacterQuery() {
 //   return queryOptions({
 //     queryKey: ["character", "top"],
-//     queryFn: fetchTopCharacter,
+//     queryFn: fetchCharacter,
 //   });
 // }
 

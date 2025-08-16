@@ -1,25 +1,28 @@
-import Search from "@/components/search";
 import CardSectionLoading from "@/components/loadings/card-section-loading";
 import { Suspense } from "react";
 import CardContent from "@/components/card-content";
-interface PageProps {
-  searchParams: Promise<{
-    page?: string;
-    limit?: string;
-  }>;
-}
+import type { SearchParams } from "nuqs/server";
+import { loadSearchParams } from "@/lib/searchParams";
+import Filter from "@/components/filter";
+
+type PageProps = {
+  searchParams: Promise<SearchParams>;
+};
 
 export default async function Page({ searchParams }: PageProps) {
-  const params = await searchParams;
-  const currentPage = Number(params.page) || 1;
-  const limit = Number(params.limit) || 24;
+  const { page, limit, q } = await loadSearchParams(searchParams);
 
   return (
     <div className="page-wrapper-layout">
-      <Search />
+      <Filter />
 
-      <Suspense key={currentPage} fallback={<CardSectionLoading length={24} />}>
-        <CardContent currentPage={currentPage} limit={limit} type="character" />
+      <Suspense fallback={<CardSectionLoading length={limit} />}>
+        <CardContent
+          currentPage={page}
+          limit={limit}
+          type="character"
+          search={q}
+        />
       </Suspense>
     </div>
   );
