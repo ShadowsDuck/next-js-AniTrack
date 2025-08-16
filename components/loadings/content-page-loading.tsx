@@ -1,6 +1,6 @@
 import CardSectionLoading from "@/components/loadings/card-section-loading";
-import MultiSelectUI from "@/components/multi-select-ui";
 import Search from "@/components/search";
+import MultiSelectGenres from "../multi-select-genres";
 
 export default function ContentPageLoading() {
   return (
@@ -8,7 +8,7 @@ export default function ContentPageLoading() {
       <div className="flex flex-row gap-6 py-12">
         <Search />
         <div className="hidden md:block">
-          <MultiSelectUI />
+          <MultiSelectGenres type="anime" />
         </div>
       </div>
       <CardSectionLoading length={24} />

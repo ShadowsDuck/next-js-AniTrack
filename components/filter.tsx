@@ -1,13 +1,13 @@
 import React from "react";
 import Search from "./search";
-import MultiSelectUI from "./multi-select-ui";
+import MultiSelectGenres from "./multi-select-genres";
 
-export default function Filter() {
+export default function Filter({ type }: { type: string }) {
   return (
     <div className="flex flex-row gap-6 py-12">
       <Search />
       <div className="hidden md:block">
-        <MultiSelectUI />
+        <MultiSelectGenres type={type} />
       </div>
     </div>
   );

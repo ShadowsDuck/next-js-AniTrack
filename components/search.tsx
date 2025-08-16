@@ -1,51 +1,44 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useQueryState, parseAsString, parseAsInteger } from "nuqs";
+
+import { useEffect, useState, useTransition } from "react";
+import { useQueryStates, parseAsString, parseAsInteger } from "nuqs";
 import { useDebouncedCallback } from "use-debounce";
 import { SearchIcon, Loader2 } from "lucide-react";
 import { Input } from "./ui/input";
 
 export default function Search() {
-  const [query, setQuery] = useQueryState(
-    "q",
-    parseAsString.withDefault("").withOptions({
-      shallow: false,
-    }),
+  // ใช้ useTransition เพื่อป้องกัน UI ค้าง และแก้ปัญหาข้อมูลไม่อัปเดตในบางครั้ง
+  // โดยจะรอให้ข้อมูลใหม่จากเซิร์ฟเวอร์พร้อมก่อน จึงค่อยอัปเดตหน้าจอ
+  const [isPending, startTransition] = useTransition();
+
+  const [states, setStates] = useQueryStates(
+    {
+      q: parseAsString.withDefault(""),
+      page: parseAsInteger.withDefault(1),
+    },
+    {
+      shallow: false, // ทำให้เกิด server-side navigation
+      scroll: false, // ป้องกันหน้าจอเลื่อนขึ้นบน
+    },
   );
 
-  const [page, setPage] = useQueryState("page", parseAsInteger);
-  const [inputValue, setInputValue] = useState(query);
-  const [isSearching, setIsSearching] = useState(false);
+  const [inputValue, setInputValue] = useState(states.q);
 
   useEffect(() => {
-    if (page == null) {
-      setPage(1);
-    }
-  }, [page, setPage]);
+    setInputValue(states.q);
+  }, [states.q]);
 
-  // Sync inputValue กับ query เมื่อ query เปลี่ยนจากภายนอก
-  useEffect(() => {
-    setInputValue(query);
-    setIsSearching(false);
-  }, [query]);
-
-  // Debounced callback สำหรับอัปเดต query
-  const debouncedSetQuery = useDebouncedCallback((value: string) => {
-    if (value !== query) {
-      setQuery(value);
-      setPage(1);
+  const debouncedUpdate = useDebouncedCallback((value: string) => {
+    if (value !== states.q) {
+      startTransition(() => {
+        setStates({ q: value, page: 1 });
+      });
     }
-    setIsSearching(false);
   }, 700);
 
   const handleInputChange = (value: string) => {
     setInputValue(value);
-
-    // เริ่ม loading เฉพาะเมื่อ value ต่างจาก query ปัจจุบัน
-    if (value !== query) {
-      setIsSearching(true);
-      debouncedSetQuery(value);
-    }
+    debouncedUpdate(value);
   };
 
   return (
@@ -60,9 +53,10 @@ export default function Search() {
           type="search"
           value={inputValue}
           onChange={(e) => handleInputChange(e.target.value)}
+          disabled={isPending}
         />
         <div className="pointer-events-none absolute inset-y-0 start-1 flex items-center justify-center ps-2 peer-disabled:opacity-50">
-          {isSearching ? (
+          {isPending ? (
             <Loader2 size={14} className="animate-spin text-[#516070]" />
           ) : (
             <SearchIcon size={14} strokeWidth={3} className="text-[#516070]" />

@@ -1,25 +1,39 @@
 export const fetchAnime = async ({
   search,
+  genres,
   page,
   limit,
 }: {
   search?: string;
+  genres?: string[];
   page: number;
   limit: number;
 }) => {
   try {
     const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
 
-    const response = await fetch(
-      search
-        ? `${baseUrl}/api/anime?q=${encodeURIComponent(search)}&page=${page}&limit=${limit}`
-        : `${baseUrl}/api/anime?page=${page}&limit=${limit}`,
-      {
-        next: {
-          revalidate: 900,
-        },
+    const params = new URLSearchParams();
+
+    if (search) {
+      params.append("q", search);
+    }
+
+    if (genres && genres.length > 0) {
+      params.append("genres", genres.join(","));
+    }
+
+    params.append("page", page.toString());
+    params.append("limit", limit.toString());
+    params.append("order_by", "score");
+    params.append("sort", "desc");
+
+    const url = `${baseUrl}/api/anime?${params.toString()}`;
+
+    const response = await fetch(url, {
+      next: {
+        revalidate: 900,
       },
-    );
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -41,7 +55,7 @@ export const fetchAnime = async ({
       },
     };
   } catch (error) {
-    console.error("Error fetching top anime:", error);
+    console.error("Error fetching anime:", error);
     return {
       animeList: [],
       pagination: {
@@ -57,26 +71,40 @@ export const fetchAnime = async ({
 
 export const fetchManga = async ({
   search,
+  genres,
   page,
   limit,
 }: {
   search?: string;
+  genres?: string[];
   page: number;
   limit: number;
 }) => {
   try {
     const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
 
-    const response = await fetch(
-      search
-        ? `${baseUrl}/api/manga?q=${encodeURIComponent(search)}&page=${page}&limit=${limit}`
-        : `${baseUrl}/api/top-manga?page=${page}&limit=${limit}`,
-      {
-        next: {
-          revalidate: 900,
-        },
+    const params = new URLSearchParams();
+
+    if (search) {
+      params.append("q", search);
+    }
+
+    if (genres && genres.length > 0) {
+      params.append("genres", genres.join(","));
+    }
+
+    params.append("page", page.toString());
+    params.append("limit", limit.toString());
+    params.append("order_by", "score");
+    params.append("sort", "desc");
+
+    const url = `${baseUrl}/api/manga?${params.toString()}`;
+
+    const response = await fetch(url, {
+      next: {
+        revalidate: 900,
       },
-    );
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -98,7 +126,7 @@ export const fetchManga = async ({
       },
     };
   } catch (error) {
-    console.error("Error fetching top manga:", error);
+    console.error("Error fetching manga:", error);
     return {
       mangaList: [],
       pagination: {

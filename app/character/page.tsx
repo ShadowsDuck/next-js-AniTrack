@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import CardContent from "@/components/card-content";
 import type { SearchParams } from "nuqs/server";
 import { loadSearchParams } from "@/lib/searchParams";
-import Filter from "@/components/filter";
+import Search from "@/components/search";
 
 type PageProps = {
   searchParams: Promise<SearchParams>;
@@ -14,7 +14,9 @@ export default async function Page({ searchParams }: PageProps) {
 
   return (
     <div className="page-wrapper-layout">
-      <Filter />
+      <div className="py-12">
+        <Search />
+      </div>
 
       <Suspense fallback={<CardSectionLoading length={limit} />}>
         <CardContent

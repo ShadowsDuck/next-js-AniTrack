@@ -8,6 +8,7 @@ type SectionType = "anime" | "manga" | "character";
 
 interface CardContentProps {
   search: string;
+  genres?: string[];
   currentPage: number;
   limit: number;
   type: SectionType;
@@ -15,6 +16,7 @@ interface CardContentProps {
 
 export default async function CardContent({
   search,
+  genres,
   currentPage,
   limit,
   type,
@@ -23,9 +25,10 @@ export default async function CardContent({
     const configs = {
       anime: async () => {
         const result = await fetchAnime({
+          search,
+          genres,
           page: currentPage,
           limit,
-          search,
         });
         return {
           data: result.animeList,
@@ -35,9 +38,10 @@ export default async function CardContent({
       },
       manga: async () => {
         const result = await fetchManga({
+          search,
+          genres,
           page: currentPage,
           limit,
-          search,
         });
         return {
           data: result.mangaList,

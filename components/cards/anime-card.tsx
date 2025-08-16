@@ -27,7 +27,7 @@ export default function AnimeCard({ animeList }: AnimeCardProps) {
       },
       "Currently Airing": {
         variant: "airing" as const,
-        indicator: "degraded" as const,
+        indicator: "maintenance" as const,
         title: "Airing",
       },
     }[status] || {
@@ -57,7 +57,7 @@ export default function AnimeCard({ animeList }: AnimeCardProps) {
     return (
       <div className="flex flex-row items-center gap-1.5">
         {emoji}
-        <p className="text-base font-semibold">{(score * 10).toFixed(0)}%</p>
+        <p className="text-base font-semibold">{Math.floor(score * 10)}%</p>
       </div>
     );
   };

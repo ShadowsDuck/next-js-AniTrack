@@ -10,14 +10,25 @@ type PageProps = {
 };
 
 export default async function Page({ searchParams }: PageProps) {
-  const { page, limit, q } = await loadSearchParams(searchParams);
+  const { page, limit, q, genres } = await loadSearchParams(searchParams);
+  const uniqueKey = `${q}-${genres.join(",")}-${page}-${limit}`;
 
   return (
     <div className="page-wrapper-layout">
-      <Filter />
+      <Filter type="anime" />
 
-      <Suspense fallback={<CardSectionLoading length={limit} />}>
-        <CardContent currentPage={page} limit={limit} type="anime" search={q} />
+      {/* key บังคับให้ re-mount component ใหม่เสมอเมื่อฟิลเตอร์เปลี่ยน เพื่อรีเซ็ต state ทั้งหมด */}
+      <Suspense
+        key={uniqueKey}
+        fallback={<CardSectionLoading length={limit} />}
+      >
+        <CardContent
+          currentPage={page}
+          limit={limit}
+          type="anime"
+          search={q}
+          genres={genres}
+        />
       </Suspense>
     </div>
   );

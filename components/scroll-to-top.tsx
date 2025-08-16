@@ -8,27 +8,16 @@ export default function ScrollToTop() {
   const pathname = usePathname();
 
   useEffect(() => {
-    // ปิด browser scroll restoration
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
   }, []);
 
   useEffect(() => {
-    const scrollToTop = () => {
-      window.scrollTo(0, 0);
-    };
-
-    // หน้า home: scroll เมื่อ pathname เปลี่ยน
-    if (pathname === "/") {
-      scrollToTop();
-      setTimeout(scrollToTop, 10); // backup
-    }
-    // หน้าอื่น: scroll เมื่อ page เปลี่ยน
-    else if (page !== null) {
-      scrollToTop();
-    }
-  }, [pathname, page]);
+    // ถ้า useEffect นี้ทำงาน แสดงว่า pathname หรือ page มีการเปลี่ยนแปลง
+    // ซึ่งเป็นสิ่งที่เราต้องการให้เลื่อนขึ้นบนอยู่แล้ว
+    window.scrollTo(0, 0);
+  }, [pathname, page]); // Dependency array นี้ถูกต้องและครอบคลุมทุกกรณี
 
   return null;
 }

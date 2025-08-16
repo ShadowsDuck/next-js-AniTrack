@@ -67,7 +67,7 @@ export default function MangaCard({ mangaList }: MangaCardProps) {
     return (
       <div className="flex flex-row items-center gap-1.5">
         {emoji}
-        <p className="text-base font-semibold">{(score * 10).toFixed(0)}%</p>
+        <p className="text-base font-semibold">{Math.floor(score * 10)}%</p>
       </div>
     );
   };
