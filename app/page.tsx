@@ -20,7 +20,7 @@ export default function Home() {
 
         {/* Manga Section */}
         <div className="flex flex-row justify-between">
-          <h1 className="card-text-header">Top Comic of all time</h1>
+          <h1 className="card-text-header">Top Manga of all time</h1>
           <ViewAllButton to="/manga" />
         </div>
         <Suspense fallback={<CardSectionLoading />}>

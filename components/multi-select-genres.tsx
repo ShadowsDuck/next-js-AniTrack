@@ -7,11 +7,17 @@ import {
   parseAsString,
   parseAsInteger,
 } from "nuqs";
-import { MultiSelect } from "./ui/multi-select";
+import { MultiSelect, MultiSelectRef } from "./ui/multi-select";
 import { animeGenres, mangaGenres } from "@/lib";
 import { useDebouncedCallback } from "use-debounce";
 
-export default function MultiSelectGenres({ type }: { type: string }) {
+export default function MultiSelectGenres({
+  type,
+  clearFilter,
+}: {
+  type: string;
+  clearFilter: React.RefObject<MultiSelectRef | null>;
+}) {
   // ใช้ useTransition เพื่อป้องกัน UI ค้าง และแก้ปัญหาข้อมูลไม่อัปเดตในบางครั้ง
   // โดยจะรอให้ข้อมูลใหม่จากเซิร์ฟเวอร์พร้อมก่อน จึงค่อยอัปเดตหน้าจอ
   const [isPending, startTransition] = useTransition();
@@ -44,21 +50,24 @@ export default function MultiSelectGenres({ type }: { type: string }) {
 
   return (
     <div>
-      <label className="text-text-2 mb-2 block text-sm font-semibold">
+      <label className="text-head mb-2 block text-sm font-semibold">
         Genres
       </label>
       <div className="space-y-2">
         <MultiSelect
+          ref={clearFilter}
           options={optionGenres}
           defaultValue={states.genres}
           onValueChange={handleChange}
           searchable={false}
-          minWidth="330px"
-          maxWidth="330px"
+          minWidth="260px"
+          maxWidth="260px"
           placeholder="Any"
           maxCount={1}
           className="hover:bg-search bg-search border-none"
           disabled={isPending}
+          variant="custom"
+          singleLine={true}
         />
       </div>
     </div>

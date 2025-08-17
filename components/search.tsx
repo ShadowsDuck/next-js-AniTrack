@@ -42,13 +42,13 @@ export default function Search() {
   };
 
   return (
-    <div className="text-text-1 text-[13px] font-normal">
-      <label className="text-text-2 mb-2 block text-sm font-semibold">
+    <div className="flex-1 text-[13px] font-normal">
+      <label className="text-head mb-2 block text-sm font-semibold">
         Search
       </label>
-      <div className="relative flex-1">
+      <div className="relative">
         <Input
-          className="peer h-10 w-full max-w-xs ps-9 pe-2"
+          className="peer h-10 w-full ps-9 pe-2"
           placeholder="Search"
           type="search"
           value={inputValue}

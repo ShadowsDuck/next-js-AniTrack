@@ -56,6 +56,8 @@ const multiSelectVariants = cva("m-1 transition-all duration-300 ease-in-out", {
       destructive:
         "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
       inverted: "inverted",
+      custom:
+        "border-none text-item font-normal bg-[#1c2836] hover:bg-[#1c2836] rounded-md",
     },
     badgeAnimation: {
       bounce: "hover:-translate-y-1 hover:scale-110",
@@ -823,11 +825,11 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                 <div className="flex w-full items-center justify-between">
                   <div
                     className={cn(
-                      "flex items-center gap-1",
+                      "flex items-center gap-0",
                       singleLine
                         ? "multiselect-singleline-scroll overflow-x-auto"
                         : "flex-wrap",
-                      responsiveSettings.compactMode && "gap-0.5",
+                      responsiveSettings.compactMode && "gap-0",
                     )}
                     style={
                       singleLine
@@ -949,10 +951,10 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                           animationDelay: `${animationConfig?.delay || 0}s`,
                         }}
                       >
-                        {`+ ${
+                        {`+${
                           selectedValues.length - responsiveSettings.maxCount
-                        } more`}
-                        <XCircle
+                        }`}
+                        {/* <XCircle
                           className={cn(
                             "ml-2 h-4 w-4 cursor-pointer",
                             responsiveSettings.compactMode && "ml-1 h-3 w-3",
@@ -961,7 +963,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                             event.stopPropagation();
                             clearExtraOptions();
                           }}
-                        />
+                        /> */}
                       </Badge>
                     )}
                   </div>
@@ -997,7 +999,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
                 </div>
               ) : (
                 <div className="mx-auto flex w-full items-center justify-between">
-                  <span className="text-text-1 mx-3 text-[13px] font-normal">
+                  <span className="text-placeholder mx-3 text-[13px] font-normal">
                     {placeholder}
                   </span>
                   <ChevronDown className="text-muted-foreground mx-2 h-4 cursor-pointer" />
@@ -1015,7 +1017,7 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
               getPopoverAnimationClass(),
               screenSize === "mobile" && "w-[85vw] max-w-[280px]",
               screenSize === "tablet" && "w-[70vw] max-w-md",
-              screenSize === "desktop" && "min-w-[330px]",
+              screenSize === "desktop" && "min-w-[260px]",
               popoverClassName,
             )}
             style={{
