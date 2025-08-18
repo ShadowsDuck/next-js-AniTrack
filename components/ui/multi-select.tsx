@@ -57,7 +57,7 @@ const multiSelectVariants = cva("m-1 transition-all duration-300 ease-in-out", {
         "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
       inverted: "inverted",
       custom:
-        "border-none text-item font-normal bg-[#1c2836] hover:bg-[#1c2836] rounded-md",
+        "border-none text-item font-normal bg-secondary hover:bg-secondary rounded-md",
     },
     badgeAnimation: {
       bounce: "hover:-translate-y-1 hover:scale-110",

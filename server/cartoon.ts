@@ -1,13 +1,15 @@
+import { getCurrentSeasonRange } from "@/lib/getSeasonDate";
+
 export const fetchAnime = async ({
   search,
   genres,
-  page,
-  limit,
+  page = 1,
+  limit = 5,
 }: {
   search?: string;
   genres?: string[];
-  page: number;
-  limit: number;
+  page?: number;
+  limit?: number;
 }) => {
   try {
     const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
@@ -69,6 +71,47 @@ export const fetchAnime = async ({
   }
 };
 
+export const fetchAnimeTrending = async () => {
+  try {
+    const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
+
+    const params = new URLSearchParams();
+
+    params.append("type", "tv");
+    params.append("status", "airing");
+    params.append("order_by", "score");
+    params.append("sort", "desc");
+    params.append("start_date", getCurrentSeasonRange().start_date);
+    params.append("end_date", getCurrentSeasonRange().end_date);
+    params.append("page", "1");
+    params.append("limit", "5");
+
+    const url = `${baseUrl}/api/anime?${params.toString()}`;
+
+    const response = await fetch(url, {
+      next: {
+        revalidate: 900,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const { data: topTrendingAnime }: { data: AnimeData[] } =
+      await response.json();
+
+    return {
+      topTrendingAnime: topTrendingAnime || [],
+    };
+  } catch (error) {
+    console.error("Error fetching anime:", error);
+    return {
+      topTrendingAnime: [],
+    };
+  }
+};
+
 export const fetchManga = async ({
   search,
   genres,
@@ -95,7 +138,7 @@ export const fetchManga = async ({
 
     params.append("page", page.toString());
     params.append("limit", limit.toString());
-    params.append("order_by", "score");
+    params.append("order_by", "rank");
     params.append("sort", "desc");
 
     const url = `${baseUrl}/api/manga?${params.toString()}`;

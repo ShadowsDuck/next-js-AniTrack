@@ -28,8 +28,8 @@ export default function Filter({ type }: { type: string }) {
             className={cn(
               "h-5 w-5",
               isOpen
-                ? "text-[#6bc0f6] duration-500"
-                : "text-[#647380] duration-500",
+                ? "text-accent-foreground duration-500"
+                : "text-placeholder duration-500",
             )}
             strokeWidth={3}
           />

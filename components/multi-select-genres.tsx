@@ -15,8 +15,8 @@ export default function MultiSelectGenres({
   type,
   clearFilter,
 }: {
-  type: string;
-  clearFilter: React.RefObject<MultiSelectRef | null>;
+  type?: string;
+  clearFilter?: React.RefObject<MultiSelectRef | null>;
 }) {
   // ใช้ useTransition เพื่อป้องกัน UI ค้าง และแก้ปัญหาข้อมูลไม่อัปเดตในบางครั้ง
   // โดยจะรอให้ข้อมูลใหม่จากเซิร์ฟเวอร์พร้อมก่อน จึงค่อยอัปเดตหน้าจอ
