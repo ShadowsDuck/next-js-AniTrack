@@ -195,16 +195,24 @@ export const fetchCharacter = async ({
   try {
     const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
 
-    const response = await fetch(
-      search
-        ? `${baseUrl}/api/character?q=${encodeURIComponent(search)}&page=${page}&limit=${limit}`
-        : `${baseUrl}/api/top-character?page=${page}&limit=${limit}`,
-      {
-        next: {
-          revalidate: 900,
-        },
+    const params = new URLSearchParams();
+
+    if (search) {
+      params.append("q", search);
+    }
+
+    params.append("page", page.toString());
+    params.append("limit", limit.toString());
+    params.append("order_by", "favorites");
+    params.append("sort", "desc");
+
+    const url = `${baseUrl}/api/character?${params.toString()}`;
+
+    const response = await fetch(url, {
+      next: {
+        revalidate: 900,
       },
-    );
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
