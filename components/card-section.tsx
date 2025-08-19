@@ -27,8 +27,6 @@ export default async function CardSection({ type, path }: CardSectionProps) {
 
     case "animeSidebar":
       const { topTrendingAnime } = await fetchAnimeTrending();
-      console.log(topTrendingAnime);
-
       return <SidebarAnimeCard animeList={topTrendingAnime} />;
 
     case "manga":

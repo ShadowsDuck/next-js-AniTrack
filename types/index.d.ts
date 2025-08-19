@@ -39,6 +39,13 @@ interface Person {
   url: string;
 }
 
+interface Broadcast {
+  day: "string";
+  time: "string";
+  timezone: "string";
+  string: "string";
+}
+
 // Base interface สำหรับข้อมูล common ระหว่าง Anime และ Manga
 interface MediaBase {
   mal_id: number;
@@ -75,6 +82,7 @@ declare interface AnimeData extends MediaBase {
   studios: Person[];
   duration: string;
   season: string;
+  broadcast: Broadcast;
 }
 
 declare interface MangaData extends MediaBase {

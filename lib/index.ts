@@ -74,3 +74,13 @@ export const mangaGenres = [
   { value: "33", label: "Yaoi" },
   { value: "34", label: "Yuri" },
 ];
+
+export const weekdays = [
+  { value: "Mondays", label: "Monday" },
+  { value: "Tuesdays", label: "Tuesday" },
+  { value: "Wednesdays", label: "Wednesday" },
+  { value: "Thursdays", label: "Thursday" },
+  { value: "Fridays", label: "Friday" },
+  { value: "Saturdays", label: "Saturday" },
+  { value: "Sundays", label: "Sunday" },
+];
