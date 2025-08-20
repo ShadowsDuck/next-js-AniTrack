@@ -1,12 +1,12 @@
 import React, { Suspense } from "react";
 import ViewAllButton from "../view-all-button";
 import HomeAnimeLoading from "../loadings/home-anime-loading";
-import CardSection from "../card-section";
+import HomeCardSection from "../home-card-section";
 import { Flame } from "lucide-react";
 
 export default function TopAnimeSection() {
   return (
-    <div className="container mx-auto max-w-[40rem] px-4 md:max-w-[48rem] lg:max-w-[64rem] xl:max-w-[80rem] 2xl:max-w-[95rem]">
+    <div className="card-container">
       {/* Anime Section */}
       <section className="grid gap-8 xl:grid-cols-[1fr_340px]">
         {/* Main Content */}
@@ -30,7 +30,7 @@ export default function TopAnimeSection() {
             <div className="bg-primary/10 absolute inset-0 rounded-2xl opacity-50 shadow-[0_0_60px_rgba(99,102,241,0.3)] blur-xl"></div>
             <div className="bg-card/80 border-border shadow-primary/20 relative z-10 rounded-2xl border p-6 shadow-xl backdrop-blur-sm">
               <Suspense fallback={<HomeAnimeLoading />}>
-                <CardSection type="anime" path="home" />
+                <HomeCardSection type="anime" path="home" />
               </Suspense>
             </div>
           </div>
@@ -57,7 +57,7 @@ export default function TopAnimeSection() {
             <div className="via-border mb-6 h-px bg-gradient-to-r from-transparent to-transparent"></div>
 
             <section>
-              <CardSection type="animeSidebar" path="home" />
+              <HomeCardSection type="animeSidebar" path="home" />
             </section>
           </div>
 

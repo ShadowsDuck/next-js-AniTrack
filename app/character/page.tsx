@@ -1,6 +1,6 @@
 import CardContentLoading from "@/components/loadings/card-content-loading";
 import { Suspense } from "react";
-import CardContent from "@/components/card-content";
+import PageCardContent from "@/components/page-card-content";
 import type { SearchParams } from "nuqs/server";
 import { loadSearchParams } from "@/lib/searchParams";
 import Search from "@/components/search";
@@ -19,7 +19,7 @@ export default async function Page({ searchParams }: PageProps) {
       </div>
 
       <Suspense fallback={<CardContentLoading length={limit} />}>
-        <CardContent
+        <PageCardContent
           currentPage={page}
           limit={limit}
           type="character"

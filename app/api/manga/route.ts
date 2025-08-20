@@ -5,6 +5,7 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const q = searchParams.get("q") || "";
     const genres = searchParams.get("genres")?.split(",");
+    const type = searchParams.get("type") || "";
     const page = Number(searchParams.get("page")) || 1;
     const limit = Number(searchParams.get("limit")) || 24;
 
@@ -18,6 +19,7 @@ export async function GET(request: NextRequest) {
       params.append("genres", genres.join(","));
     }
 
+    params.append("type", type);
     params.append("page", page.toString());
     params.append("limit", limit.toString());
     params.append("order_by", "score");

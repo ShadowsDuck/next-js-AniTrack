@@ -6,7 +6,7 @@ import { fetchAnime, fetchManga, fetchCharacter } from "@/server/cartoon";
 
 type SectionType = "anime" | "manga" | "character";
 
-interface CardContentProps {
+interface PageCardContentProps {
   search: string;
   genres?: string[];
   currentPage: number;
@@ -14,13 +14,13 @@ interface CardContentProps {
   type: SectionType;
 }
 
-export default async function CardContent({
+export default async function PageCardContent({
   search,
   genres,
   currentPage,
   limit,
   type,
-}: CardContentProps) {
+}: PageCardContentProps) {
   const getCardData = async (type: SectionType) => {
     const configs = {
       anime: async () => {

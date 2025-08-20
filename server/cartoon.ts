@@ -4,12 +4,12 @@ export const fetchAnime = async ({
   search,
   genres,
   page = 1,
-  limit = 5,
+  limit = 6,
 }: {
   search?: string;
   genres?: string[];
-  page?: number;
-  limit?: number;
+  page: number;
+  limit: number;
 }) => {
   try {
     const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
@@ -154,11 +154,13 @@ export const fetchWeeklyAnime = async () => {
 export const fetchManga = async ({
   search,
   genres,
-  page,
-  limit,
+  type,
+  page = 1,
+  limit = 6,
 }: {
   search?: string;
   genres?: string[];
+  type?: string;
   page: number;
   limit: number;
 }) => {
@@ -173,6 +175,10 @@ export const fetchManga = async ({
 
     if (genres && genres.length > 0) {
       params.append("genres", genres.join(","));
+    }
+
+    if (type) {
+      params.append("type", type);
     }
 
     params.append("page", page.toString());

@@ -203,12 +203,12 @@
   }
 }
 
-/* .page-layout {
-  @apply relative flex items-center justify-center overflow-hidden px-6 py-14;
-} */
-
 .page-wrapper-layout {
   @apply mx-auto max-w-[95rem] px-4 pt-16;
+}
+
+.card-container {
+  @apply container mx-auto max-w-[40rem] px-4 md:max-w-[48rem] lg:max-w-[64rem] xl:max-w-[80rem] 2xl:max-w-[95rem];
 }
 
 .card-text-header {
@@ -262,7 +262,7 @@
 }
 
 .card-text-layout {
-  @apply bg-search/80 space-y-2 border-t border-white/10 px-4 py-4;
+  @apply bg-search/70 space-y-2 border-t border-white/10 px-4 py-4;
 }
 
 .card-text-name {
