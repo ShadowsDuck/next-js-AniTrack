@@ -10,7 +10,8 @@ type PageProps = {
 };
 
 export default async function Page({ searchParams }: PageProps) {
-  const { page, limit, q, genres } = await loadSearchParams(searchParams);
+  const { q, genres, year, season, type, status, page, limit } =
+    await loadSearchParams(searchParams);
   const uniqueKey = `${q}-${genres.join(",")}-${page}-${limit}`;
 
   return (
@@ -23,11 +24,15 @@ export default async function Page({ searchParams }: PageProps) {
         fallback={<CardContentLoading length={limit} />}
       >
         <PageCardContent
-          currentPage={page}
-          limit={limit}
-          type="anime"
           search={q}
           genres={genres}
+          year={year}
+          season={season ?? undefined} // ถ้า season ไม่มีการเลือกให้ season แปลง null เป็น undefined
+          type={type ?? undefined}
+          status={status ?? undefined}
+          currentPage={page}
+          limit={limit}
+          cartoonType="anime"
         />
       </Suspense>
     </div>

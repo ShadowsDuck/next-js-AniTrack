@@ -20,7 +20,6 @@ import {
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
-import { useFixedTitle } from "@/lib/useFixedTitle";
 
 export interface PaginationWithLinksProps {
   pageSizeSelectOptions?: {
@@ -71,8 +70,6 @@ export function PaginationWithLinks({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
-
-  // useFixedTitle("Anime Tracker");
 
   const totalPageCount = Math.ceil(totalCount / pageSize);
 

@@ -2,11 +2,12 @@
 
 import React, { useRef, useState } from "react";
 import Search from "./search";
-import MultiSelectGenres from "./multi-select-genres";
+import MultiSelectGenres from "./filters/multi-select-genres";
 import { Button } from "./ui/button";
 import { BrushCleaning, SlidersHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { MultiSelectRef } from "./ui/multi-select";
+import SelectYear from "./filters/select-year";
 
 export default function Filter({ type }: { type: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,18 +42,12 @@ export default function Filter({ type }: { type: string }) {
             <MultiSelectGenres type={type} clearFilter={multiSelectRef} />
           </div>
           <div>
-            <MultiSelectGenres type={type} clearFilter={multiSelectRef} />
+            <SelectYear />
           </div>
-          <div>
-            <MultiSelectGenres type={type} clearFilter={multiSelectRef} />
-          </div>
-          <div>
-            <MultiSelectGenres type={type} clearFilter={multiSelectRef} />
-          </div>
-          <div className="mt-7.5">
+          <div className="mt-7">
             <Button variant="destructive" onClick={handleClear}>
               <BrushCleaning />
-              <p>Clear Filter</p>
+              <p className="select-none">Clear Filter</p>
             </Button>
           </div>
         </div>

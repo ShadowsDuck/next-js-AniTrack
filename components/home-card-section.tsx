@@ -1,13 +1,9 @@
 import AnimeCard from "@/components/cards/anime-card";
-import {
-  fetchAnime,
-  fetchAnimeTrending,
-  fetchCharacter,
-  fetchManga,
-} from "@/server/cartoon";
+import { fetchAnime, fetchCharacter, fetchManga } from "@/server/cartoon";
 import SidebarAnimeCard from "./cards/sidebar-anime-card";
 import MangaCarousel from "./cards/manga-carousel";
 import CharacterCarousel from "./cards/character-carousel";
+import { getCurrentSeasonRange } from "@/lib/getSeasonDate";
 
 type SectionType = "anime" | "manga" | "character" | "animeSidebar";
 
@@ -29,7 +25,14 @@ export default async function HomeCardSection({
       return <AnimeCard animeList={animeList} path={path} />;
 
     case "animeSidebar":
-      const { topTrendingAnime } = await fetchAnimeTrending();
+      const { animeList: topTrendingAnime } = await fetchAnime({
+        type: "tv",
+        status: "airing",
+        year: new Date().getFullYear(),
+        season: getCurrentSeasonRange().season,
+        page: 1,
+        limit: 5,
+      });
       return <SidebarAnimeCard animeList={topTrendingAnime} />;
 
     case "manga":

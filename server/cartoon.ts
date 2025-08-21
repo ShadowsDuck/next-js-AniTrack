@@ -1,16 +1,15 @@
-import { getCurrentSeasonRange } from "@/lib/getSeasonDate";
+import { getFilterDateRange } from "@/lib/getSeasonDate";
 
 export const fetchAnime = async ({
   search,
   genres,
+  year,
+  season,
+  type,
+  status,
   page = 1,
   limit = 6,
-}: {
-  search?: string;
-  genres?: string[];
-  page: number;
-  limit: number;
-}) => {
+}: FetchAnimeParams) => {
   try {
     const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
 
@@ -24,12 +23,34 @@ export const fetchAnime = async ({
       params.append("genres", genres.join(","));
     }
 
+    if (year || season) {
+      const { start_date, end_date } = getFilterDateRange(
+        year ? new Date(year.toString()) : new Date(),
+        season ?? undefined,
+      );
+
+      if (start_date && end_date) {
+        params.append("start_date", start_date);
+        params.append("end_date", end_date);
+      }
+    }
+
+    if (type) {
+      params.append("type", type);
+    }
+
+    if (status) {
+      params.append("status", status);
+    }
+
     params.append("page", page.toString());
     params.append("limit", limit.toString());
     params.append("order_by", "score");
     params.append("sort", "desc");
 
     const url = `${baseUrl}/api/anime?${params.toString()}`;
+
+    console.log("cartoon: ", url);
 
     const response = await fetch(url, {
       next: {
@@ -67,47 +88,6 @@ export const fetchAnime = async ({
         totalPages: 0,
         hasNextPage: false,
       },
-    };
-  }
-};
-
-export const fetchAnimeTrending = async () => {
-  try {
-    const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
-
-    const params = new URLSearchParams();
-
-    params.append("type", "tv");
-    params.append("status", "airing");
-    params.append("order_by", "score");
-    params.append("sort", "desc");
-    params.append("start_date", getCurrentSeasonRange().start_date);
-    params.append("end_date", getCurrentSeasonRange().end_date);
-    params.append("page", "1");
-    params.append("limit", "5");
-
-    const url = `${baseUrl}/api/anime?${params.toString()}`;
-
-    const response = await fetch(url, {
-      next: {
-        revalidate: 900,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const { data: topTrendingAnime }: { data: AnimeData[] } =
-      await response.json();
-
-    return {
-      topTrendingAnime: topTrendingAnime || [],
-    };
-  } catch (error) {
-    console.error("Error fetching anime:", error);
-    return {
-      topTrendingAnime: [],
     };
   }
 };

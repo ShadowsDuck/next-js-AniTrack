@@ -84,3 +84,37 @@ export const weekdays = [
   { value: "Saturdays", label: "Saturday" },
   { value: "Sundays", label: "Sunday" },
 ];
+
+export const animeStatuses = [
+  { value: "airing", label: "Airing" },
+  { value: "completed", label: "Completed" },
+  { value: "upcoming", label: "Upcoming" },
+];
+
+export const animeTypes = [
+  { value: "tv", label: "TV" },
+  { value: "movie", label: "Movie" },
+  { value: "ova", label: "OVA" },
+  { value: "special", label: "Special" },
+  { value: "ona", label: "ONA" },
+  { value: "music", label: "Music" },
+  { value: "cm", label: "CM" },
+  { value: "pv", label: "PV" },
+  { value: "tv_special", label: "TV Special" },
+];
+
+export const animeSeasons = [
+  { value: "winter", label: "Winter" },
+  { value: "spring", label: "Spring" },
+  { value: "summer", label: "Summer" },
+  { value: "fall", label: "Fall" },
+];
+
+const currentYear = new Date().getFullYear();
+const YearOptions = [];
+
+for (let year = currentYear + 1; year >= 1970; year--) {
+  YearOptions.push({ value: year.toString(), label: year.toString() });
+}
+
+export const yearOptions = YearOptions;

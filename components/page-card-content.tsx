@@ -4,29 +4,27 @@ import CharacterCard from "@/components/cards/character-card";
 import { PaginationWithLinks } from "@/components/ui/pagination-with-links";
 import { fetchAnime, fetchManga, fetchCharacter } from "@/server/cartoon";
 
-type SectionType = "anime" | "manga" | "character";
-
-interface PageCardContentProps {
-  search: string;
-  genres?: string[];
-  currentPage: number;
-  limit: number;
-  type: SectionType;
-}
-
 export default async function PageCardContent({
   search,
   genres,
+  year,
+  season,
+  type,
+  status,
   currentPage,
   limit,
-  type,
+  cartoonType,
 }: PageCardContentProps) {
-  const getCardData = async (type: SectionType) => {
+  const getCardData = async (cartoonType: SectionType) => {
     const configs = {
       anime: async () => {
         const result = await fetchAnime({
           search,
           genres,
+          year,
+          season,
+          type,
+          status,
           page: currentPage,
           limit,
         });
@@ -63,20 +61,22 @@ export default async function PageCardContent({
       },
     };
 
-    const configFn = configs[type];
+    const configFn = configs[cartoonType];
     if (!configFn) {
-      throw new Error(`Invalid type: ${type}`);
+      throw new Error(`Invalid type: ${cartoonType}`);
     }
 
     return await configFn();
   };
 
   try {
-    const { data, pagination, component } = await getCardData(type);
+    const { data, pagination, component } = await getCardData(cartoonType);
 
     if (!data || data.length === 0) {
       return (
-        <div className="py-16 text-center text-gray-500">No {type} found</div>
+        <div className="py-16 text-center text-gray-500">
+          No {cartoonType} found
+        </div>
       );
     }
 
@@ -87,7 +87,7 @@ export default async function PageCardContent({
           <>
             <div className="mt-4 text-sm text-gray-600">
               Page {currentPage} of {pagination?.totalPages} • Total:{" "}
-              {pagination?.totalItems?.toLocaleString()} {type}s
+              {pagination?.totalItems?.toLocaleString()} {cartoonType}s
             </div>
 
             <div className="mt-8">
@@ -102,10 +102,11 @@ export default async function PageCardContent({
         )}
       </>
     );
-  } catch {
+  } catch (error) {
     return (
       <div className="py-16 text-center text-red-500">
-        Error loading {type} data
+        Error loading {cartoonType} data:{" "}
+        {error instanceof Error ? error.message : "Unknown error"}
       </div>
     );
   }

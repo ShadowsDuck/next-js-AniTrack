@@ -41,3 +41,26 @@ export function getCurrentSeasonRange(date: Date = new Date()): {
 
   return { year, season, start_date, end_date };
 }
+
+export function getFilterDateRange(
+  date: Date = new Date(),
+  season?: Season,
+): {
+  year?: number;
+  season?: Season;
+  start_date: string;
+  end_date: string;
+} {
+  const year = date.getFullYear();
+
+  if (!season) {
+    return {
+      start_date: `${year}-01-01`,
+      end_date: `${year}-12-31`,
+    };
+  }
+
+  const { start_date, end_date } = getSeasonDate(year, season);
+
+  return { year, season, start_date, end_date };
+}

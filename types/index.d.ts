@@ -111,3 +111,40 @@ declare interface Pagination {
     per_page: number;
   };
 }
+
+type AnimeSeason = "winter" | "spring" | "summer" | "fall";
+type AnimeType =
+  | "tv"
+  | "movie"
+  | "ova"
+  | "special"
+  | "ona"
+  | "music"
+  | "cm"
+  | "pv"
+  | "tv_special";
+type AnimeStatus = "airing" | "completed" | "upcoming";
+type SectionType = "anime" | "manga" | "character";
+
+declare interface PageCardContentProps {
+  search?: string;
+  genres?: string[];
+  year?: number | null;
+  season?: AnimeSeason;
+  type?: AnimeType;
+  status?: AnimeStatus;
+  currentPage: number;
+  limit: number;
+  cartoonType: SectionType;
+}
+
+declare interface FetchAnimeParams {
+  search?: string;
+  genres?: string[];
+  year?: number | null;
+  season?: AnimeSeason;
+  type?: AnimeType;
+  status?: AnimeStatus;
+  page: number;
+  limit: number;
+}

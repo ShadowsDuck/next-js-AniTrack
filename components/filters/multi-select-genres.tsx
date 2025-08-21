@@ -7,7 +7,7 @@ import {
   parseAsString,
   parseAsInteger,
 } from "nuqs";
-import { MultiSelect, MultiSelectRef } from "./ui/multi-select";
+import { MultiSelect, MultiSelectRef } from "../ui/multi-select";
 import { animeGenres, mangaGenres } from "@/lib";
 import { useDebouncedCallback } from "use-debounce";
 
@@ -60,14 +60,13 @@ export default function MultiSelectGenres({
           defaultValue={states.genres}
           onValueChange={handleChange}
           searchable={false}
-          minWidth="260px"
-          maxWidth="260px"
+          minWidth="270px"
+          maxWidth="270px"
           placeholder="Any"
           maxCount={1}
-          className="hover:bg-search bg-search border-none"
+          className="hover:bg-search bg-search border-none select-none"
           disabled={isPending}
           variant="custom"
-          singleLine={true}
         />
       </div>
     </div>

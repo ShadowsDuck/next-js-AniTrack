@@ -25,9 +25,9 @@ export default async function Page({ searchParams }: PageProps) {
         <PageCardContent
           currentPage={page}
           limit={limit}
-          type="manga"
           search={q}
           genres={genres}
+          cartoonType="manga"
         />
       </Suspense>
     </div>
