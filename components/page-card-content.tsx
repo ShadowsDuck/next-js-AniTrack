@@ -9,9 +9,10 @@ export default async function PageCardContent({
   genres,
   year,
   season,
+  rating,
   type,
   status,
-  currentPage,
+  page,
   limit,
   cartoonType,
 }: PageCardContentProps) {
@@ -23,9 +24,10 @@ export default async function PageCardContent({
           genres,
           year,
           season,
-          type,
-          status,
-          page: currentPage,
+          rating,
+          type: type as AnimeType,
+          status: status as AnimeStatus,
+          page,
           limit,
         });
         return {
@@ -38,7 +40,11 @@ export default async function PageCardContent({
         const result = await fetchManga({
           search,
           genres,
-          page: currentPage,
+          year,
+          season,
+          type: type as MangaType,
+          status: status as MangaStatus,
+          page,
           limit,
         });
         return {
@@ -49,7 +55,7 @@ export default async function PageCardContent({
       },
       character: async () => {
         const result = await fetchCharacter({
-          page: currentPage,
+          page,
           limit,
           search,
         });
@@ -86,13 +92,13 @@ export default async function PageCardContent({
         {pagination && (
           <>
             <div className="mt-4 text-sm text-gray-600">
-              Page {currentPage} of {pagination?.totalPages} • Total:{" "}
+              Page {page} of {pagination?.totalPages} • Total:{" "}
               {pagination?.totalItems?.toLocaleString()} {cartoonType}s
             </div>
 
             <div className="mt-8">
               <PaginationWithLinks
-                page={currentPage}
+                page={page}
                 pageSize={limit}
                 totalCount={pagination?.totalItems}
                 // navigationMode="router"

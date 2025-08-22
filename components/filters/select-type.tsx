@@ -1,15 +1,23 @@
 import { CustomSelect } from "@/components/ui/custom-select";
-import { yearOptions } from "@/lib";
+import { animeTypes, mangaTypes } from "@/lib";
 
-interface SelectYearProps {
+interface SelectTypeProps {
+  type: string;
   value: string;
   onValueChange: (newValue: string | null) => void;
   disabled?: boolean;
 }
 
-const SelectYear = ({ value, onValueChange, disabled }: SelectYearProps) => {
-  const handleValueChange = (newYear: string) => {
-    onValueChange(newYear === "" ? null : newYear);
+const SelectType = ({
+  type,
+  value,
+  onValueChange,
+  disabled,
+}: SelectTypeProps) => {
+  const optionGenres = type === "anime" ? animeTypes : mangaTypes;
+
+  const handleValueChange = (newType: string) => {
+    onValueChange(newType === "" ? null : newType);
   };
 
   const handleReset = () => {
@@ -18,10 +26,10 @@ const SelectYear = ({ value, onValueChange, disabled }: SelectYearProps) => {
 
   return (
     <div className="w-[180px]">
-      <label className="text-head mb-2 block text-sm font-semibold">Year</label>
+      <label className="text-head mb-2 block text-sm font-semibold">Type</label>
       <div className="space-y-2">
         <CustomSelect
-          options={yearOptions}
+          options={optionGenres}
           value={value}
           placeholder="Any"
           onValueChange={handleValueChange}
@@ -34,5 +42,5 @@ const SelectYear = ({ value, onValueChange, disabled }: SelectYearProps) => {
   );
 };
 
-SelectYear.displayName = "SelectYear";
-export default SelectYear;
+SelectType.displayName = "SelectType";
+export default SelectType;

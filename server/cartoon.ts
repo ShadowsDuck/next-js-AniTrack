@@ -5,6 +5,7 @@ export const fetchAnime = async ({
   genres,
   year,
   season,
+  rating,
   type,
   status,
   page = 1,
@@ -35,6 +36,10 @@ export const fetchAnime = async ({
       }
     }
 
+    if (rating) {
+      params.append("rating", rating);
+    }
+
     if (type) {
       params.append("type", type);
     }
@@ -49,8 +54,6 @@ export const fetchAnime = async ({
     params.append("sort", "desc");
 
     const url = `${baseUrl}/api/anime?${params.toString()}`;
-
-    console.log("cartoon: ", url);
 
     const response = await fetch(url, {
       next: {
@@ -134,16 +137,13 @@ export const fetchWeeklyAnime = async () => {
 export const fetchManga = async ({
   search,
   genres,
+  year,
+  season,
   type,
+  status,
   page = 1,
   limit = 6,
-}: {
-  search?: string;
-  genres?: string[];
-  type?: string;
-  page: number;
-  limit: number;
-}) => {
+}: FetchMangaParams) => {
   try {
     const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
 
@@ -157,13 +157,29 @@ export const fetchManga = async ({
       params.append("genres", genres.join(","));
     }
 
+    if (year || season) {
+      const { start_date, end_date } = getFilterDateRange(
+        year ? new Date(year.toString()) : new Date(),
+        season ?? undefined,
+      );
+
+      if (start_date && end_date) {
+        params.append("start_date", start_date);
+        params.append("end_date", end_date);
+      }
+    }
+
     if (type) {
       params.append("type", type);
     }
 
+    if (status) {
+      params.append("status", status);
+    }
+
     params.append("page", page.toString());
     params.append("limit", limit.toString());
-    params.append("order_by", "rank");
+    params.append("order_by", "score");
     params.append("sort", "desc");
 
     const url = `${baseUrl}/api/manga?${params.toString()}`;

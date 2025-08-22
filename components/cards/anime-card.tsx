@@ -74,7 +74,7 @@ export default function AnimeCard({ animeList, path }: AnimeCardProps) {
                     height={18}
                     className="detail-icon"
                   />
-                  <p className="text-item">{anime.episodes}</p>
+                  <p className="text-item">{anime.episodes || "N/A"}</p>
                 </div>
                 <div className="card-detail-item">
                   <Image
@@ -84,7 +84,7 @@ export default function AnimeCard({ animeList, path }: AnimeCardProps) {
                     height={18}
                     className="detail-icon"
                   />
-                  <p className="text-[#f4d03f]">{anime.score}</p>
+                  <p className="text-[#f4d03f]">{anime.score || "N/A"}</p>
                 </div>
               </div>
             </footer>

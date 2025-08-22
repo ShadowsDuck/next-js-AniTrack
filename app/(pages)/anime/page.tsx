@@ -10,7 +10,7 @@ type PageProps = {
 };
 
 export default async function Page({ searchParams }: PageProps) {
-  const { q, genres, year, season, type, status, page, limit } =
+  const { q, genres, year, season, rating, type, status, page, limit } =
     await loadSearchParams(searchParams);
   const uniqueKey = `${q}-${genres.join(",")}-${page}-${limit}`;
 
@@ -28,9 +28,10 @@ export default async function Page({ searchParams }: PageProps) {
           genres={genres}
           year={year}
           season={season ?? undefined} // ถ้า season ไม่มีการเลือกให้ season แปลง null เป็น undefined
-          type={type ?? undefined}
-          status={status ?? undefined}
-          currentPage={page}
+          rating={rating ?? undefined}
+          type={(type as AnimeType) ?? undefined}
+          status={(status as AnimeStatus) ?? undefined}
+          page={page}
           limit={limit}
           cartoonType="anime"
         />

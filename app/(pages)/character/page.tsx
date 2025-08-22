@@ -21,7 +21,7 @@ export default async function Page({ searchParams }: PageProps) {
       <Suspense fallback={<CardContentLoading length={limit} />}>
         <PageCardContent
           search={q}
-          currentPage={page}
+          page={page}
           limit={limit}
           cartoonType="character"
         />

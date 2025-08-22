@@ -87,8 +87,17 @@ export const weekdays = [
 
 export const animeStatuses = [
   { value: "airing", label: "Airing" },
-  { value: "completed", label: "Completed" },
+  { value: "complete", label: "Completed" },
   { value: "upcoming", label: "Upcoming" },
+];
+
+export const animeRatings = [
+  { value: "g", label: "All Ages" },
+  { value: "pg", label: "Children" },
+  { value: "pg13", label: "Teens" },
+  { value: "r17", label: "Violence/Profanity" },
+  { value: "r", label: "Mild Nudity" },
+  { value: "rx", label: "Adult Only" },
 ];
 
 export const animeTypes = [
@@ -118,3 +127,28 @@ for (let year = currentYear + 1; year >= 1970; year--) {
 }
 
 export const yearOptions = YearOptions;
+
+export const mangaTypes = [
+  { value: "manga", label: "Manga" },
+  { value: "novel", label: "Novel" },
+  { value: "lightnovel", label: "Light Novel" },
+  { value: "oneshot", label: "One Shot" },
+  { value: "doujin", label: "Doujin" },
+  { value: "manhwa", label: "Manhwa" },
+  { value: "manhua", label: "Manhua" },
+];
+
+export const mangaStatuses = [
+  { value: "publishing", label: "Publishing" },
+  { value: "complete", label: "Completed" },
+  { value: "hiatus", label: "Hiatus" },
+  { value: "discontinued", label: "Discontinued" },
+  { value: "upcoming", label: "Upcoming" },
+];
+
+export const mangaSeasons = [
+  { value: "winter", label: "Winter" },
+  { value: "spring", label: "Spring" },
+  { value: "summer", label: "Summer" },
+  { value: "fall", label: "Fall" },
+];

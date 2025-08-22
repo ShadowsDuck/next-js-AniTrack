@@ -1,15 +1,19 @@
 import { CustomSelect } from "@/components/ui/custom-select";
-import { yearOptions } from "@/lib";
+import { animeSeasons } from "@/lib";
 
-interface SelectYearProps {
+interface SelectSeasonProps {
   value: string;
   onValueChange: (newValue: string | null) => void;
   disabled?: boolean;
 }
 
-const SelectYear = ({ value, onValueChange, disabled }: SelectYearProps) => {
-  const handleValueChange = (newYear: string) => {
-    onValueChange(newYear === "" ? null : newYear);
+const SelectSeason = ({
+  value,
+  onValueChange,
+  disabled,
+}: SelectSeasonProps) => {
+  const handleValueChange = (newSeason: string) => {
+    onValueChange(newSeason === "" ? null : newSeason);
   };
 
   const handleReset = () => {
@@ -18,10 +22,12 @@ const SelectYear = ({ value, onValueChange, disabled }: SelectYearProps) => {
 
   return (
     <div className="w-[180px]">
-      <label className="text-head mb-2 block text-sm font-semibold">Year</label>
+      <label className="text-head mb-2 block text-sm font-semibold">
+        Season
+      </label>
       <div className="space-y-2">
         <CustomSelect
-          options={yearOptions}
+          options={animeSeasons}
           value={value}
           placeholder="Any"
           onValueChange={handleValueChange}
@@ -34,5 +40,5 @@ const SelectYear = ({ value, onValueChange, disabled }: SelectYearProps) => {
   );
 };
 
-SelectYear.displayName = "SelectYear";
-export default SelectYear;
+SelectSeason.displayName = "SelectSeason";
+export default SelectSeason;

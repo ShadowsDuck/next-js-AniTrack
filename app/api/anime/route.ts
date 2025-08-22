@@ -9,6 +9,7 @@ export async function GET(request: NextRequest) {
       genres: searchParams.get("genres")?.split(",").join(","),
       start_date: searchParams.get("start_date") || undefined,
       end_date: searchParams.get("end_date") || undefined,
+      rating: searchParams.get("rating") || undefined,
       type: searchParams.get("type") || undefined,
       status: searchParams.get("status") || undefined,
       order_by: searchParams.get("order_by") || undefined,
