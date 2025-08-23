@@ -3,19 +3,8 @@ import { Button } from "../ui/button";
 import { ExternalLink, Rss } from "lucide-react";
 import Link from "next/link";
 
-export default async function WhereToWatch({ animeId }: { animeId: string }) {
-  const response = await fetch(
-    `https://api.jikan.moe/v4/anime/${animeId}/streaming`,
-    {
-      next: {
-        revalidate: 900,
-      },
-    },
-  );
-
-  const { data: streamings } = await response.json();
-
-  if (!streamings || streamings.length === 0) {
+export default async function WhereToWatch({ anime }: { anime: AnimeData }) {
+  if (!anime.streaming || anime.streaming.length === 0) {
     return (
       <Card>
         <CardHeader>
@@ -43,7 +32,7 @@ export default async function WhereToWatch({ animeId }: { animeId: string }) {
       </CardHeader>
       <CardContent>
         <div className="space-y-3">
-          {streamings?.map((platform: Streaming, index: number) => (
+          {anime.streaming?.map((platform: Streaming, index: number) => (
             <div
               key={index}
               className="flex items-center justify-between rounded-lg border p-3"

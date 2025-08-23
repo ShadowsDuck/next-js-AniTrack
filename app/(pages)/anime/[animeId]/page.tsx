@@ -5,6 +5,7 @@ import NewsSection from "@/components/contents/news-section";
 import RelatedSection from "@/components/contents/related-section";
 import WhereToWatch from "@/components/contents/where-to-watch";
 import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
+import { fetchAnimeDetails } from "@/server/cartoon";
 import { TabsList } from "@radix-ui/react-tabs";
 
 export default async function AnimeContentPage({
@@ -14,12 +15,21 @@ export default async function AnimeContentPage({
 }) {
   const { animeId } = await params;
 
+  const { animeDetails }: { animeDetails: AnimeData | null } =
+    await fetchAnimeDetails({
+      animeId,
+    });
+
+  if (!animeDetails) {
+    return <div>Error</div>;
+  }
+
   return (
     <div className="dark bg-background min-h-screen">
       <main className="container mx-auto px-4 py-8">
         {/* Hero Section */}
         <div className="mb-12">
-          <AnimeInfo animeId={animeId} />
+          <AnimeInfo anime={animeDetails} />
         </div>
 
         {/* Content Tabs */}
@@ -37,7 +47,7 @@ export default async function AnimeContentPage({
                 <NewsSection animeId={animeId} />
               </div>
               <div>
-                <WhereToWatch animeId={animeId} />
+                <WhereToWatch anime={animeDetails} />
               </div>
             </div>
           </TabsContent>
@@ -51,7 +61,7 @@ export default async function AnimeContentPage({
           </TabsContent>
 
           <TabsContent value="related" className="space-y-8">
-            <RelatedSection animeId={animeId} />
+            <RelatedSection anime={animeDetails} />
           </TabsContent>
         </Tabs>
 

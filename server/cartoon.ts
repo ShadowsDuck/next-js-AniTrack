@@ -290,6 +290,28 @@ export const fetchCharacter = async ({
   }
 };
 
+export const fetchAnimeDetails = async ({ animeId }: { animeId: string }) => {
+  try {
+    const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
+    const url = `${baseUrl}/api/anime/${animeId}`;
+
+    const response = await fetch(url, {
+      next: { revalidate: 900 },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch anime details");
+    }
+
+    const { data }: { data: AnimeData } = await response.json();
+
+    return { animeDetails: data };
+  } catch (error) {
+    console.error("Error fetching anime details:", error);
+    return { animeDetails: null };
+  }
+};
+
 export const fetchAnimeCharacters = async ({
   animeId,
 }: {

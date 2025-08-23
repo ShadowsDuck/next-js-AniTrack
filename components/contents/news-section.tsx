@@ -8,9 +8,7 @@ export default async function NewsSection({ animeId }: { animeId: string }) {
   const response = await fetch(
     `https://api.jikan.moe/v4/anime/${animeId}/news`,
     {
-      next: {
-        revalidate: 900,
-      },
+      cache: "no-store",
     },
   );
 

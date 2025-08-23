@@ -166,6 +166,8 @@ declare interface AnimeData extends MediaBase {
   season: string;
   broadcast: Broadcast;
   trailer: Trailer;
+  streaming: Streaming[];
+  relations: Relation[];
 }
 
 declare interface MangaData extends MediaBase {

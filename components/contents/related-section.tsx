@@ -2,19 +2,8 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Tag } from "lucide-react";
 
-export default async function RelatedSection({ animeId }: { animeId: string }) {
-  const response = await fetch(
-    `https://api.jikan.moe/v4/anime/${animeId}/relations`,
-    {
-      next: {
-        revalidate: 900,
-      },
-    },
-  );
-
-  const { data: relations } = await response.json();
-
-  if (!relations || relations.length === 0) {
+export default async function RelatedSection({ anime }: { anime: AnimeData }) {
+  if (!anime.relations || anime.relations.length === 0) {
     return (
       <Card>
         <CardHeader>
@@ -43,7 +32,7 @@ export default async function RelatedSection({ animeId }: { animeId: string }) {
       <CardContent>
         <main className="space-y-4">
           <div className="-mt-2 flex flex-col gap-6">
-            {relations?.map((relation: Relation) => (
+            {anime.relations?.map((relation: Relation) => (
               <div key={relation?.relation} className="flex flex-col gap-3">
                 <h1 className="text-lg font-bold">{relation?.relation}</h1>
 

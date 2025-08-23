@@ -24,15 +24,7 @@ import Link from "next/link";
 import ShareButton from "../share-button";
 import { Status, StatusIndicator } from "../ui/shadcn-io/status";
 
-export default async function AnimeInfo({ animeId }: { animeId: string }) {
-  const response = await fetch(`https://api.jikan.moe/v4/anime/${animeId}`, {
-    next: {
-      revalidate: 900,
-    },
-  });
-
-  const { data: anime } = await response.json();
-
+export default async function AnimeInfo({ anime }: { anime: AnimeData }) {
   const getStatusBadge = (status: string) => {
     const config = {
       "Finished Airing": {
