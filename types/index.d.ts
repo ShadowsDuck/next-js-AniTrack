@@ -46,6 +46,88 @@ interface Broadcast {
   string: "string";
 }
 
+interface Trailer {
+  youtube_id: "string";
+  url: "string";
+  embed_url: "string";
+}
+
+declare interface Episodes {
+  mal_id: number;
+  url: string;
+  title: string;
+  title_japanese: string;
+  aired: string;
+  score: number;
+  filler: boolean;
+  recap: boolean;
+  forum_url: string;
+}
+
+declare interface News {
+  mal_id: number;
+  url: string;
+  title: string;
+  date: string;
+  author_username: string;
+  author_url: string;
+  forum_url: string;
+  images: {
+    jpg: {
+      image_url: string;
+    };
+  };
+  comments: number;
+  excerpt: string;
+}
+
+declare interface Streaming {
+  name: string;
+  url: string;
+}
+
+declare interface Character {
+  character: {
+    mal_id: number;
+    url: string;
+    images: {
+      jpg: {
+        image_url: string;
+        small_image_url: string;
+      };
+      webp: {
+        image_url: string;
+        small_image_url: string;
+      };
+    };
+    name: string;
+  };
+  role: string;
+  voice_actors: {
+    person: {
+      mal_id: number;
+      url: string;
+      images: {
+        jpg: {
+          image_url: string;
+        };
+      };
+      name: string;
+    };
+    language: string;
+  }[];
+}
+
+declare interface Relation {
+  relation: string;
+  entry: {
+    mal_id: number;
+    type: string;
+    name: string;
+    url: string;
+  }[];
+}
+
 // Base interface สำหรับข้อมูล common ระหว่าง Anime และ Manga
 interface MediaBase {
   mal_id: number;
@@ -83,6 +165,7 @@ declare interface AnimeData extends MediaBase {
   duration: string;
   season: string;
   broadcast: Broadcast;
+  trailer: Trailer;
 }
 
 declare interface MangaData extends MediaBase {

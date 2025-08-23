@@ -289,3 +289,43 @@ export const fetchCharacter = async ({
     };
   }
 };
+
+export const fetchAnimeCharacters = async ({
+  animeId,
+}: {
+  animeId: string;
+}) => {
+  try {
+    const response = await fetch(
+      `https://api.jikan.moe/v4/anime/${animeId}/characters`,
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch characters");
+    }
+
+    const result = await response.json();
+    return result.data || [];
+  } catch (error) {
+    console.error("Error fetching characters:", error);
+    return [];
+  }
+};
+
+export const fetchAnimeEpisodes = async ({ animeId }: { animeId: string }) => {
+  try {
+    const response = await fetch(
+      `https://api.jikan.moe/v4/anime/${animeId}/episodes`,
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch episodes");
+    }
+
+    const result = await response.json();
+    return result.data || [];
+  } catch (error) {
+    console.error("Error fetching episodes:", error);
+    return [];
+  }
+};

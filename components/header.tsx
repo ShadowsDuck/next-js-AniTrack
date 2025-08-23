@@ -1,10 +1,10 @@
 "use client";
 import Link from "next/link";
-import { Logo } from "@/components/logo";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { cn } from "@/lib/utils";
+import Logo from "./logo";
 
 const menuItems = [
   { name: "Features", href: "#link" },
@@ -27,13 +27,7 @@ export const HeroHeader = () => {
         <div className="mx-auto max-w-[90rem] px-6 transition-all duration-300">
           <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
             <div className="flex w-full items-center justify-between gap-12 lg:w-auto">
-              <Link
-                href="/"
-                aria-label="home"
-                className="flex items-center space-x-2"
-              >
-                <Logo />
-              </Link>
+              <Logo />
 
               <button
                 onClick={() => setMenuState(!menuState)}
