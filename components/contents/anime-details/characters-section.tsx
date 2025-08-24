@@ -1,14 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchAnimeCharactersQuery } from "@/lib/queryOptions/fetchData";
-import { LoaderOne } from "../ui/loader";
+import { LoaderOne } from "@/components/ui/loader";
 import { useState } from "react";
-import { DynamicPagination } from "../dynamic-pagination";
 import Link from "next/link";
+import { DynamicPagination } from "@/components/dynamic-pagination";
 
 export default function CharactersSection({ animeId }: { animeId: string }) {
   const [page, setPage] = useState(1);
@@ -108,9 +108,11 @@ export default function CharactersSection({ animeId }: { animeId: string }) {
                 {/* Character Info */}
                 <div className="flex flex-col gap-2">
                   <div>
-                    <p className="text-base font-semibold">
-                      {character?.character?.name || "N/A"}
-                    </p>
+                    <Link href={`/character/${character.character.mal_id}`}>
+                      <p className="hover:text-primary text-base font-semibold transition-colors">
+                        {character?.character?.name || "N/A"}
+                      </p>
+                    </Link>
                     <p className="text-muted-foreground text-sm">
                       {character?.role}
                     </p>
@@ -119,7 +121,7 @@ export default function CharactersSection({ animeId }: { animeId: string }) {
                     <p className="text-muted-foreground text-sm font-medium">
                       VA:
                     </p>
-                    <Link href={`/character/${character.character.mal_id}`}>
+                    <Link href={`/people/${character.character.mal_id}`}>
                       <p className="hover:text-primary text-sm font-medium transition-colors">
                         {character.voice_actors?.[0]?.person?.name || "N/A"}
                       </p>

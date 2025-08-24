@@ -11,18 +11,19 @@ import {
   Tv,
   Leaf,
 } from "lucide-react";
-import { Card } from "../ui/card";
-import { RatingStars } from "./rating-stars";
-import { Button } from "../ui/button";
-import { Badge } from "../ui/badge";
-import FavoriteButton from "../favorite-button";
+
+import { RatingStars } from "../rating-stars";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { formatDate } from "@/lib/format-date";
 import Link from "next/link";
-import ShareButton from "../share-button";
-import { Status, StatusIndicator } from "../ui/shadcn-io/status";
+import { Status, StatusIndicator } from "@/components/ui/shadcn-io/status";
+import { Card } from "@/components/ui/card";
+import ShareButton from "@/components/share-button";
+import FavoriteButton from "@/components/favorite-button";
 
 export default async function AnimeInfo({ anime }: { anime: AnimeData }) {
   const getStatusBadge = (status: string) => {
@@ -59,84 +60,83 @@ export default async function AnimeInfo({ anime }: { anime: AnimeData }) {
       <div className="container mx-auto px-4 py-6 sm:px-6 lg:px-8">
         <div className="grid gap-6 sm:gap-8 lg:grid-cols-12 lg:gap-12">
           {/* Poster Section */}
-          <div className="flex flex-col items-center lg:col-span-4 xl:col-span-3">
-            <Dialog>
-              <DialogTrigger asChild>
-                <div className="group relative cursor-pointer">
-                  <div className="card-image-wrapper aspect-[2/3] w-full overflow-hidden rounded-lg bg-black sm:w-80 lg:w-full">
-                    {anime?.images?.webp?.large_image_url ||
-                    anime?.images?.jpg?.large_image_url ||
-                    anime?.images?.webp?.image_url ||
-                    anime?.images?.jpg?.image_url ? (
-                      <Image
-                        src={
-                          anime?.images?.webp?.large_image_url ||
-                          anime?.images?.jpg?.large_image_url ||
-                          anime?.images?.webp?.image_url ||
-                          anime?.images?.jpg?.image_url
-                        }
-                        alt={anime?.title || "Anime Image"}
-                        width={400}
-                        height={600}
-                        priority
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    ) : (
-                      <Image
-                        src="/images/placeholder.png"
-                        alt={"placeholder Image"}
-                        width={400}
-                        height={600}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    )}
-                  </div>
+          <div className="lg:col-span-4 xl:col-span-3">
+            <div className="sticky top-6 flex flex-col items-center">
+              <Dialog>
+                <DialogTrigger asChild>
+                  <div className="group relative cursor-pointer">
+                    <div className="card-image-wrapper aspect-[2/3] w-full overflow-hidden rounded-lg bg-black sm:w-80 lg:w-full">
+                      {anime?.images ? (
+                        <Image
+                          src={
+                            anime?.images?.webp?.large_image_url ||
+                            anime?.images?.jpg?.large_image_url ||
+                            anime?.images?.webp?.image_url ||
+                            anime?.images?.jpg?.image_url
+                          }
+                          alt={anime?.title || "anime Image"}
+                          width={400}
+                          height={600}
+                          priority
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <Image
+                          src="/images/placeholder.png"
+                          alt="placeholder"
+                          width={400}
+                          height={600}
+                          className="h-full w-full object-cover"
+                        />
+                      )}
+                    </div>
 
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-                  {/* Play icon overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-300 group-hover:opacity-100">
-                    <div className="rounded-full bg-black/40 p-4 transition-transform duration-300 hover:scale-110">
-                      <Play className="h-12 w-12 fill-current text-white" />
+                    {/* Play icon overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-300 group-hover:opacity-100">
+                      <div className="rounded-full bg-black/40 p-4 transition-transform duration-300 hover:scale-110">
+                        <Play className="h-12 w-12 fill-current text-white" />
+                      </div>
                     </div>
                   </div>
-                </div>
-              </DialogTrigger>
-              <DialogTitle />
-              <DialogContent className="w-full !max-w-3xl p-0">
-                <div className="aspect-video w-full">
-                  <iframe
-                    src={anime?.trailer?.embed_url}
-                    title="Anime Trailer"
-                    className="h-full w-full rounded-lg"
-                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                </div>
-              </DialogContent>
-            </Dialog>
+                </DialogTrigger>
+                <DialogTitle />
+                <DialogContent className="w-full !max-w-3xl p-0">
+                  <div className="aspect-video w-full">
+                    <iframe
+                      src={anime?.trailer?.embed_url}
+                      title="Anime Trailer"
+                      className="h-full w-full rounded-lg"
+                      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                </DialogContent>
+              </Dialog>
 
-            {/* Button */}
-            <div className="mt-6 flex w-full flex-col">
-              {anime?.url && (
-                <Link
-                  href={anime?.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button
-                    size="lg"
-                    className="from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 w-full bg-gradient-to-r shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+              {/* Button */}
+              <div className="mt-6 flex w-full flex-col">
+                {anime?.url && (
+                  <Link
+                    href={anime?.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    <ExternalLink className="mr-2 h-5 w-5" />
-                    View on MyAnimeList
-                  </Button>
-                </Link>
-              )}
-              <div className="mt-2 grid grid-cols-3 gap-2">
-                <ShareButton />
-                <FavoriteButton />
+                    <Button
+                      size="lg"
+                      className="from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 w-full bg-gradient-to-r shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                    >
+                      <ExternalLink className="mr-2 h-5 w-5" />
+                      View on MyAnimeList
+                    </Button>
+                  </Link>
+                )}
+                <div className="mt-2 grid grid-cols-3 gap-2">
+                  <ShareButton />
+                  <FavoriteButton />
+                </div>
               </div>
             </div>
           </div>

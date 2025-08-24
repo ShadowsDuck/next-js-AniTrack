@@ -173,6 +173,8 @@ declare interface AnimeData extends MediaBase {
 declare interface MangaData extends MediaBase {
   chapters: number;
   volumes: number;
+  external: Streaming[];
+  relations: Relation[];
 }
 
 declare interface CharacterData {

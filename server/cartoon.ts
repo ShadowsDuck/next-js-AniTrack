@@ -312,6 +312,28 @@ export const fetchAnimeDetails = async ({ animeId }: { animeId: string }) => {
   }
 };
 
+export const fetchMangaDetails = async ({ mangaId }: { mangaId: string }) => {
+  try {
+    const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
+    const url = `${baseUrl}/api/manga/${mangaId}`;
+
+    const response = await fetch(url, {
+      next: { revalidate: 900 },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch manga details");
+    }
+
+    const { data }: { data: MangaData } = await response.json();
+
+    return { mangaDetails: data };
+  } catch (error) {
+    console.error("Error fetching manga details:", error);
+    return { mangaDetails: null };
+  }
+};
+
 export const fetchAnimeCharacters = async ({
   animeId,
 }: {

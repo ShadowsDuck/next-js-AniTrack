@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
 import { Tag } from "lucide-react";
 
 export default async function RelatedSection({ anime }: { anime: AnimeData }) {
@@ -47,7 +47,7 @@ export default async function RelatedSection({ anime }: { anime: AnimeData }) {
                       }
                     >
                       <div className="hover:border-primary flex w-full flex-col rounded-lg border px-4 py-3 transition-all duration-300 hover:scale-[1.03] md:w-72">
-                        <h4 className="text-foreground flex items-center font-semibold">
+                        <h4 className="text-foreground line-clamp-1 w-full font-semibold">
                           {entry.name}
                         </h4>
                         <p className="text-muted-foreground text-sm">

@@ -1,9 +1,9 @@
-import AnimeInfo from "@/components/contents/anime-info";
-import CharactersSection from "@/components/contents/characters-section";
-import EpisodesSection from "@/components/contents/episodes-section";
-import NewsSection from "@/components/contents/news-section";
-import RelatedSection from "@/components/contents/related-section";
-import WhereToWatch from "@/components/contents/where-to-watch";
+import AnimeInfo from "@/components/contents/anime-details/anime-info";
+import CharactersSection from "@/components/contents/anime-details/characters-section";
+import EpisodesSection from "@/components/contents/anime-details/episodes-section";
+import NewsSection from "@/components/contents/anime-details/news-section";
+import RelatedSection from "@/components/contents/anime-details/related-section";
+import WhereToWatch from "@/components/contents/anime-details/where-to-watch";
 import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import { fetchAnimeDetails } from "@/server/cartoon";
 import { TabsList } from "@radix-ui/react-tabs";
@@ -64,8 +64,6 @@ export default async function AnimeContentPage({
             <RelatedSection anime={animeDetails} />
           </TabsContent>
         </Tabs>
-
-        {/* Side Content */}
       </main>
     </div>
   );

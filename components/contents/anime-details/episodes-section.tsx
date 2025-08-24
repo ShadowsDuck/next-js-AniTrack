@@ -1,14 +1,14 @@
 "use client";
 
 import { formatDate } from "@/lib/format-date";
-import { Badge } from "../ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, List } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchAnimeEpisodesQuery } from "@/lib/queryOptions/fetchData";
-import { LoaderOne } from "../ui/loader";
+import { LoaderOne } from "@/components/ui/loader";
 import { useState } from "react";
-import { DynamicPagination } from "../dynamic-pagination";
+import { DynamicPagination } from "@/components/dynamic-pagination";
 
 export default function EpisodesSection({ animeId }: { animeId: string }) {
   const [page, setPage] = useState(1);

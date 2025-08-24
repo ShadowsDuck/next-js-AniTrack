@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { Badge } from "../ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
+import { Badge } from "../../ui/badge";
 import { Calendar, Newspaper } from "lucide-react";
 import { formatDate } from "@/lib/format-date";
 import Link from "next/link";
