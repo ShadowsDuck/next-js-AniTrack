@@ -128,6 +128,62 @@ declare interface Relation {
   }[];
 }
 
+declare interface AnimeRelation {
+  role: string;
+  anime: {
+    mal_id: number;
+    url: string;
+    images: {
+      jpg: {
+        image_url: string;
+        small_image_url: string;
+        large_image_url: string;
+      };
+      webp: {
+        image_url: string;
+        small_image_url: string;
+        large_image_url: string;
+      };
+    };
+    title: string;
+  };
+}
+
+declare interface MangaRelation {
+  role: string;
+  manga: {
+    mal_id: number;
+    url: string;
+    images: {
+      jpg: {
+        image_url: string;
+        small_image_url: string;
+        large_image_url: string;
+      };
+      webp: {
+        image_url: string;
+        small_image_url: string;
+        large_image_url: string;
+      };
+    };
+    title: string;
+  };
+}
+
+declare interface VoiceActor {
+  language: string;
+  person: {
+    mal_id: number;
+    url: string;
+    images: {
+      jpg: {
+        image_url: string;
+      };
+    };
+    name: string;
+  };
+}
+
 // Base interface สำหรับข้อมูล common ระหว่าง Anime และ Manga
 interface MediaBase {
   mal_id: number;
@@ -186,6 +242,9 @@ declare interface CharacterData {
   nicknames: string[];
   favorites: number;
   about: string;
+  anime: AnimeRelation[];
+  manga: MangaRelation[];
+  voices: VoiceActor[];
 }
 
 declare interface Pagination {

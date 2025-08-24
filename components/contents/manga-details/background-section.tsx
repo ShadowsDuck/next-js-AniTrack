@@ -33,7 +33,7 @@ export default async function BackgroundSection({
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="space-y-4">
+        <div>
           <article className="border-b pb-4 last:border-b-0 last:pb-0">
             <div className="text-muted-foreground -mt-2 flex items-center gap-1 text-base">
               {manga.background}

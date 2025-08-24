@@ -12,7 +12,7 @@ export default function WeeklyTabs() {
   ];
 
   return (
-    <div className="bg-card/80 rounded-xl p-8">
+    <div className="bg-search/80 rounded-xl p-8">
       <Tabs defaultValue="monday" className="items-center">
         <TabsList className="h-auto rounded-none border-b bg-transparent p-0">
           {weekdays.map((day) => (

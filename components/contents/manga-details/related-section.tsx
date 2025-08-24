@@ -30,7 +30,7 @@ export default async function RelatedSection({ manga }: { manga: MangaData }) {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <main className="space-y-4">
+        <main>
           <div className="-mt-2 flex flex-col gap-6">
             {manga.relations?.map((relation: Relation) => (
               <div key={relation?.relation} className="flex flex-col gap-3">

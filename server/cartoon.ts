@@ -334,6 +334,32 @@ export const fetchMangaDetails = async ({ mangaId }: { mangaId: string }) => {
   }
 };
 
+export const fetchCharacterDetails = async ({
+  characterId,
+}: {
+  characterId: string;
+}) => {
+  try {
+    const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
+    const url = `${baseUrl}/api/character/${characterId}`;
+
+    const response = await fetch(url, {
+      next: { revalidate: 900 },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch character details");
+    }
+
+    const { data }: { data: CharacterData } = await response.json();
+
+    return { characterDetails: data };
+  } catch (error) {
+    console.error("Error fetching character details:", error);
+    return { characterDetails: null };
+  }
+};
+
 export const fetchAnimeCharacters = async ({
   animeId,
 }: {

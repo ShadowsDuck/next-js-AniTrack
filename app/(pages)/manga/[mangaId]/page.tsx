@@ -30,13 +30,13 @@ export default async function MangaContentPage({
         </div>
 
         {/* Content Tabs */}
-        <Tabs defaultValue="overview" className="space-y-8">
-          <TabsList className="bg-card/80 grid w-full grid-cols-2 rounded-lg p-1">
+        <Tabs defaultValue="overview" className="space-y-4">
+          <TabsList className="bg-search/80 grid w-full grid-cols-2 rounded-lg p-1">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="related">Related</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="overview" className="space-y-8">
+          <TabsContent value="overview">
             <div className="grid gap-8 lg:grid-cols-3">
               <div className="lg:col-span-2">
                 <BackgroundSection manga={mangaDetails} />
@@ -47,7 +47,7 @@ export default async function MangaContentPage({
             </div>
           </TabsContent>
 
-          <TabsContent value="related" className="space-y-8">
+          <TabsContent value="related">
             <RelatedSection manga={mangaDetails} />
           </TabsContent>
         </Tabs>
