@@ -1,63 +1,80 @@
-interface CharacterDetails {
+interface Details {
   [key: string]: string;
 }
 
-interface ParsedCharacterAbout {
-  details: CharacterDetails;
+interface ParsedAbout {
+  details: Details;
   description: string;
 }
 
-export function parseCharacterAbout(
-  aboutText: string | null | undefined,
-): ParsedCharacterAbout {
+export function parseAbout(aboutText: string | null | undefined): ParsedAbout {
   if (!aboutText || aboutText.trim() === "") {
-    return { details: {}, description: "No information available." };
+    // ถ้าไม่มีข้อมูลเข้ามา ก็คืนค่าว่างไปเลย
+    return { details: {}, description: "" };
   }
 
-  const details: CharacterDetails = {};
-  let description = "";
+  const lines = aboutText.split("\n");
+  const details: Details = {};
+  let descriptionStartIndex = 0; // จุดเริ่มต้นของ Description (ตั้งต้นไว้ที่บรรทัดแรก)
 
-  // 1. แยกส่วน Details และ Description ออกจากกันโดยใช้ "บรรทัดว่าง" เป็นตัวคั่น
-  //    /\n\s*\n/  หมายถึงการขึ้นบรรทัดใหม่ ตามด้วยช่องว่าง (ถ้ามี) และขึ้นบรรทัดใหม่อีกครั้ง
-  const blocks = aboutText.split(/\n\s*\n/);
-
-  // บล็อกแรกสุดคือส่วนของ Details
-  const detailsBlock = blocks[0];
-
-  // บล็อกที่เหลือทั้งหมดคือส่วนของ Description
-  if (blocks.length > 1) {
-    description = blocks.slice(1).join("\n\n"); // นำย่อหน้ากลับมาต่อกัน
-  }
-
-  // 2. ประมวลผลเฉพาะส่วน Details ทีละบรรทัด
-  const lines = detailsBlock.split("\n").filter((line) => line.trim() !== ""); // เอาบรรทัดว่างออก
-
+  // วนลูปเพื่อหา "ส่วนของ Details" เท่านั้น
   for (let i = 0; i < lines.length; i++) {
     const currentLine = lines[i].trim();
 
+    // ข้ามบรรทัดที่ว่างเปล่าไป
+    if (currentLine === "") {
+      // ถ้าเจอรรทัดว่างระหว่างรายการ ให้ถือว่า details จบแล้ว
+      if (Object.keys(details).length > 0) {
+        descriptionStartIndex = i;
+        break;
+      }
+      continue;
+    }
+
+    const nextLine = i + 1 < lines.length ? lines[i + 1].trim() : null;
+
+    // ตรวจสอบรูปแบบ "Key: Value"
     if (currentLine.includes(":")) {
-      // กรณีที่ 1: "Key: Value" อยู่ในบรรทัดเดียวกัน
       const parts = currentLine.split(":");
       const key = parts[0].trim();
-      const value = parts.slice(1).join(":").trim(); // เผื่อกรณีใน value มี :
-      if (key && value) {
-        details[key] = value;
+
+      // ถ้า Key ยาวเกินไป แสดงว่าเป็นประโยคธรรมดา ไม่ใช่ Key -> หยุดค้นหา Details
+      if (key.length > 30) {
+        descriptionStartIndex = i;
+        break;
       }
-    } else {
-      // กรณีที่ 2: "Key" อยู่บรรทัดนี้ และ "Value" อยู่บรรทัดถัดไป
-      const nextLine = lines[i + 1] ? lines[i + 1].trim() : null;
-      // ตรวจสอบว่าบรรทัดถัดไปไม่น่าจะเป็น Key ใหม่ (เช่น ไม่มี :)
-      if (nextLine && !nextLine.includes(":")) {
-        const key = currentLine;
-        const value = nextLine;
-        details[key] = value;
-        i++; // **สำคัญมาก**: ข้ามบรรทัดถัดไปเพราะเราใช้ไปแล้ว
-      }
+      const value = parts.slice(1).join(":").trim();
+      details[key] = value;
+      continue; // ไปยังบรรทัดถัดไป
     }
+
+    // ตรวจสอบรูปแบบ "Key" แล้วตามด้วย "Value" ในบรรทัดถัดไป
+    if (nextLine && nextLine !== "" && !nextLine.includes(":")) {
+      const key = currentLine;
+
+      // ถ้า Key ยาวเกินไป แสดงว่าเป็นประโยคธรรมดา -> หยุดค้นหา Details
+      if (key.length > 30) {
+        descriptionStartIndex = i;
+        break;
+      }
+      const value = nextLine;
+      details[key] = value;
+      i++; // ข้ามบรรทัดของ value ไปด้วย
+      continue; // ไปยังบรรทัดถัดไป
+    }
+
+    // **จุดสำคัญที่สุด**: ถ้าบรรทัดปัจจุบันไม่เข้าเงื่อนไขใดๆ เลย
+    // แสดงว่าส่วนของ Details ได้จบลงแล้ว และบรรทัดนี้คือจุดเริ่มต้นของ Description
+    descriptionStartIndex = i;
+    break;
   }
 
-  // 3. ทำความสะอาด Description ขั้นสุดท้าย
-  description = description.replace(/\(Source: .*?\)/g, "").trim();
+  // หลังจากหาจุดเริ่มต้นของ Description ได้แล้ว ก็ทำการตัดและประกอบร่าง
+  const description = lines
+    .slice(descriptionStartIndex)
+    .join("\n")
+    .replace(/\(Source: .*?\)/g, "")
+    .trim();
 
   return { details, description };
 }

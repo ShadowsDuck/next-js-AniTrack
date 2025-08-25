@@ -360,6 +360,32 @@ export const fetchCharacterDetails = async ({
   }
 };
 
+export const fetchPeopleDetails = async ({
+  peopleId,
+}: {
+  peopleId: string;
+}) => {
+  try {
+    const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
+    const url = `${baseUrl}/api/people/${peopleId}`;
+
+    const response = await fetch(url, {
+      next: { revalidate: 900 },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch people details");
+    }
+
+    const { data }: { data: People } = await response.json();
+
+    return { peopleDetails: data };
+  } catch (error) {
+    console.error("Error fetching people details:", error);
+    return { peopleDetails: null };
+  }
+};
+
 export const fetchAnimeCharacters = async ({
   animeId,
 }: {

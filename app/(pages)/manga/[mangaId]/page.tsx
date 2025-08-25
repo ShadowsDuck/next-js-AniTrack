@@ -1,7 +1,9 @@
+import { BackButton } from "@/components/back-button";
 import BackgroundSection from "@/components/contents/manga-details/background-section";
 import ExternalSection from "@/components/contents/manga-details/external-section";
 import MangaInfo from "@/components/contents/manga-details/manga-info";
 import RelatedSection from "@/components/contents/manga-details/related-section";
+import NotFoundPage from "@/components/not-found-page";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { fetchMangaDetails } from "@/server/cartoon";
 
@@ -18,12 +20,16 @@ export default async function MangaContentPage({
     });
 
   if (!mangaDetails) {
-    return <div>Error</div>;
+    return <NotFoundPage />;
   }
 
   return (
     <div className="dark bg-background min-h-screen">
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto py-8">
+        <div className="px-4 pt-20 lg:px-6">
+          <BackButton variant="outline" label="Go Back" />
+        </div>
+
         {/* Hero Section */}
         <div className="mb-12">
           <MangaInfo manga={mangaDetails} />

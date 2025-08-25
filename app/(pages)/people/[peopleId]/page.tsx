@@ -1,21 +1,21 @@
 import { BackButton } from "@/components/back-button";
-import CharacterInfo from "@/components/contents/character-details/character-info";
+import PeopleInfo from "@/components/contents/people-details/character-info";
 import NotFoundPage from "@/components/not-found-page";
-import { fetchCharacterDetails } from "@/server/cartoon";
+import { fetchPeopleDetails } from "@/server/cartoon";
 
 export default async function MangaContentPage({
   params,
 }: {
-  params: Promise<{ characterId: string }>;
+  params: Promise<{ peopleId: string }>;
 }) {
-  const { characterId } = await params;
+  const { peopleId } = await params;
 
-  const { characterDetails }: { characterDetails: CharacterData | null } =
-    await fetchCharacterDetails({
-      characterId,
+  const { peopleDetails }: { peopleDetails: People | null } =
+    await fetchPeopleDetails({
+      peopleId,
     });
 
-  if (!characterDetails) {
+  if (!peopleDetails) {
     return <NotFoundPage />;
   }
 
@@ -26,7 +26,7 @@ export default async function MangaContentPage({
           <BackButton variant="outline" label="Go Back" />
         </div>
 
-        <CharacterInfo character={characterDetails} />
+        <PeopleInfo people={peopleDetails} />
       </main>
     </div>
   );
