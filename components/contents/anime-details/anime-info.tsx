@@ -58,36 +58,37 @@ export default async function AnimeInfo({ anime }: { anime: AnimeData }) {
     <section className="page-wrapper-layout !pt-10">
       <main className="container grid gap-6 sm:gap-8 lg:grid-cols-12 lg:gap-12">
         {/* Poster Section */}
-        <div className="lg:col-span-4 xl:col-span-3">
+        <aside className="lg:col-span-4 xl:col-span-3">
           <div className="sticky top-6 flex flex-col items-center">
             <Dialog>
-              <DialogTrigger asChild>
+              <DialogTrigger
+                asChild
+                className="card-image-wrapper aspect-[2/3] w-full overflow-hidden rounded-lg bg-black"
+              >
                 <div className="group relative cursor-pointer">
-                  <div className="card-image-wrapper aspect-[2/3] w-full overflow-hidden rounded-lg bg-black sm:w-80 lg:w-full">
-                    {anime?.images ? (
-                      <Image
-                        src={
-                          anime?.images?.webp?.large_image_url ||
-                          anime?.images?.jpg?.large_image_url ||
-                          anime?.images?.webp?.image_url ||
-                          anime?.images?.jpg?.image_url
-                        }
-                        alt={anime?.title || "anime Image"}
-                        width={400}
-                        height={600}
-                        priority
-                        className="h-full w-full object-cover"
-                      />
-                    ) : (
-                      <Image
-                        src="/images/placeholder.png"
-                        alt="placeholder"
-                        width={400}
-                        height={600}
-                        className="h-full w-full object-cover"
-                      />
-                    )}
-                  </div>
+                  {anime?.images ? (
+                    <Image
+                      src={
+                        anime?.images?.webp?.large_image_url ||
+                        anime?.images?.jpg?.large_image_url ||
+                        anime?.images?.webp?.image_url ||
+                        anime?.images?.jpg?.image_url
+                      }
+                      alt={anime?.title || "anime Image"}
+                      width={400}
+                      height={600}
+                      priority
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <Image
+                      src="/images/placeholder.png"
+                      alt="placeholder"
+                      width={400}
+                      height={600}
+                      className="h-full w-full object-cover"
+                    />
+                  )}
 
                   {/* Gradient overlay */}
                   <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -137,7 +138,7 @@ export default async function AnimeInfo({ anime }: { anime: AnimeData }) {
               </div>
             </div>
           </div>
-        </div>
+        </aside>
 
         {/* Content Section */}
         <div className="space-y-6 lg:col-span-8 xl:col-span-9">

@@ -3,7 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { QueryProvider } from "@/components/query-provider";
 import { Red_Hat_Text } from "next/font/google";
-import { HeroHeader } from "@/components/header";
+import { HeroHeader } from "@/components/navbar/header";
 import FooterSection from "@/components/footer";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import ScrollToTop from "@/components/scroll-to-top";

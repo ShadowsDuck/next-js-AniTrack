@@ -66,7 +66,7 @@ export default async function MangaInfo({ manga }: { manga: MangaData }) {
         {/* Poster Section */}
         <aside className="lg:col-span-4 xl:col-span-3">
           <div className="sticky top-6 flex flex-col items-center">
-            <figure className="card-image-wrapper aspect-[2/3] w-full overflow-hidden rounded-lg bg-black sm:w-80 lg:w-full">
+            <figure className="card-image-wrapper aspect-[2/3] w-full overflow-hidden rounded-lg bg-black">
               {manga?.images ? (
                 <Image
                   src={

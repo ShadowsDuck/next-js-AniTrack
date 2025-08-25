@@ -12,7 +12,8 @@ export const fetchAnime = async ({
   limit = 6,
 }: FetchAnimeParams) => {
   try {
-    const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
+    const baseUrl =
+      typeof window === "undefined" ? process.env.NEXT_PUBLIC_BASE_URL : "";
 
     const params = new URLSearchParams();
 
@@ -97,7 +98,8 @@ export const fetchAnime = async ({
 
 export const fetchWeeklyAnime = async () => {
   try {
-    const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
+    const baseUrl =
+      typeof window === "undefined" ? process.env.NEXT_PUBLIC_BASE_URL : "";
 
     // สร้าง promises สำหรับทุกหน้า
     const fetchPromises = [];
@@ -145,7 +147,8 @@ export const fetchManga = async ({
   limit = 6,
 }: FetchMangaParams) => {
   try {
-    const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
+    const baseUrl =
+      typeof window === "undefined" ? process.env.NEXT_PUBLIC_BASE_URL : "";
 
     const params = new URLSearchParams();
 
@@ -234,7 +237,8 @@ export const fetchCharacter = async ({
   limit: number;
 }) => {
   try {
-    const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
+    const baseUrl =
+      typeof window === "undefined" ? process.env.NEXT_PUBLIC_BASE_URL : "";
 
     const params = new URLSearchParams();
 
@@ -292,7 +296,8 @@ export const fetchCharacter = async ({
 
 export const fetchAnimeDetails = async ({ animeId }: { animeId: string }) => {
   try {
-    const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
+    const baseUrl =
+      typeof window === "undefined" ? process.env.NEXT_PUBLIC_BASE_URL : "";
     const url = `${baseUrl}/api/anime/${animeId}`;
 
     const response = await fetch(url, {
@@ -314,7 +319,8 @@ export const fetchAnimeDetails = async ({ animeId }: { animeId: string }) => {
 
 export const fetchMangaDetails = async ({ mangaId }: { mangaId: string }) => {
   try {
-    const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
+    const baseUrl =
+      typeof window === "undefined" ? process.env.NEXT_PUBLIC_BASE_URL : "";
     const url = `${baseUrl}/api/manga/${mangaId}`;
 
     const response = await fetch(url, {
@@ -340,7 +346,8 @@ export const fetchCharacterDetails = async ({
   characterId: string;
 }) => {
   try {
-    const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
+    const baseUrl =
+      typeof window === "undefined" ? process.env.NEXT_PUBLIC_BASE_URL : "";
     const url = `${baseUrl}/api/character/${characterId}`;
 
     const response = await fetch(url, {
@@ -366,7 +373,8 @@ export const fetchPeopleDetails = async ({
   peopleId: string;
 }) => {
   try {
-    const baseUrl = typeof window === "undefined" ? process.env.BASE_URL : "";
+    const baseUrl =
+      typeof window === "undefined" ? process.env.NEXT_PUBLIC_BASE_URL : "";
     const url = `${baseUrl}/api/people/${peopleId}`;
 
     const response = await fetch(url, {
