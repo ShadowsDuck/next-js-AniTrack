@@ -13,8 +13,6 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-[🚀 Live Demo](https://next-js-ani-track.vercel.app/)
-
 </div>
 
 ---
@@ -39,6 +37,14 @@
 
 ---
 
+## 🚀 **Demo** 
+
+[🚀 Live Demo](https://next-js-ani-track.vercel.app/)
+
+![Weather App Screenshot](screenshot-AniTrack.png)
+
+---
+
 ## 🛠️ Tech Stack
 
 <div align="center">
@@ -56,7 +62,7 @@
 
 ---
 
-## 🚀 Quick Start
+## ⚡ Quick Start
 
 ### Prerequisites
 
