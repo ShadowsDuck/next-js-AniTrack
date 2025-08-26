@@ -1,5 +1,5 @@
 import { BackButton } from "@/components/buttons/back-button";
-import { Bookmark, BookOpen, Film } from "lucide-react";
+import { Bookmark, BookOpen, Film, Heart } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { getFavorites } from "@/server/user";
@@ -18,9 +18,9 @@ export default async function FavoritesPage() {
 
         <section className="page-wrapper-layout !pt-10">
           <header className="flex items-center gap-2">
-            <Bookmark size={26} />
+            <Heart size={26} />
             <h1 className="text-3xl font-semibold sm:text-4xl">
-              Your Bookmarks
+              Your Favorites
             </h1>
           </header>
         </section>

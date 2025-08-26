@@ -18,8 +18,9 @@ import Link from "next/link";
 import { Status, StatusIndicator } from "@/components/ui/shadcn-io/status";
 import { Card } from "@/components/ui/card";
 import ShareButton from "@/components/buttons/share-button";
-import FavoriteButton from "@/components/favorite-button";
+import FavoriteButton from "@/components/buttons/favorite-button";
 import { RatingStars } from "../rating-stars";
+import { getFavoriteById } from "@/server/user";
 
 export default async function MangaInfo({ manga }: { manga: MangaData }) {
   const getStatusBadge = (status: string) => {
@@ -59,6 +60,8 @@ export default async function MangaInfo({ manga }: { manga: MangaData }) {
       </Badge>
     );
   };
+
+  const favorite = await getFavoriteById(manga.mal_id);
 
   return (
     <section className="page-wrapper-layout !pt-10">
@@ -111,7 +114,18 @@ export default async function MangaInfo({ manga }: { manga: MangaData }) {
               )}
               <div className="mt-2 grid grid-cols-3 gap-2">
                 <ShareButton />
-                <FavoriteButton />
+                <FavoriteButton
+                  malId={manga.mal_id}
+                  title={manga.title}
+                  image={
+                    manga?.images?.webp?.large_image_url ||
+                    manga?.images?.jpg?.large_image_url ||
+                    manga?.images?.webp?.image_url ||
+                    manga?.images?.jpg?.image_url
+                  }
+                  type={"manga"}
+                  initialIsFavorite={favorite.success}
+                />
               </div>
             </div>
           </div>

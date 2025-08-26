@@ -43,13 +43,19 @@ export default function FavoritesSection({
 
   return (
     <section>
-      <main className="container grid grid-cols-2 gap-6 sm:gap-8 md:grid-cols-3 lg:grid-cols-4 lg:gap-12 xl:grid-cols-5">
+      <main className="container grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
         {filteredFavorites.map((favorite: Favorite) => (
           <div
             key={favorite.id}
             className="cursor-pointer rounded-lg border transition-transform duration-300 hover:scale-[1.02]"
           >
-            <Link href={`/anime/${favorite.malId}`}>
+            <Link
+              href={
+                sectionType === "anime"
+                  ? `/anime/${favorite.malId}`
+                  : `/manga/${favorite.malId}`
+              }
+            >
               <figure className="card-image-wrapper relative aspect-[2/3] w-full overflow-hidden rounded-t-lg bg-black">
                 {favorite?.image ? (
                   <Image
@@ -77,8 +83,10 @@ export default function FavoritesSection({
                   </div>
                 )}
               </figure>
-              <div className="px-2 py-3">
-                <h3 className="text-[15px] font-medium">{favorite.title}</h3>
+              <div className="p-3">
+                <h3 className="line-clamp-2 text-[15px] font-medium">
+                  {favorite.title}
+                </h3>
               </div>
             </Link>
           </div>

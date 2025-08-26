@@ -45,8 +45,8 @@ function IconButton({
         sizes[size],
         className,
       )}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      // whileHover={{ scale: 1.05 }}
+      // whileTap={{ scale: 0.95 }}
       style={
         {
           "--icon-button-color": `rgb(${color[0]}, ${color[1]}, ${color[2]})`,

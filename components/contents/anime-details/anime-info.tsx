@@ -23,7 +23,8 @@ import Link from "next/link";
 import { Status, StatusIndicator } from "@/components/ui/shadcn-io/status";
 import { Card } from "@/components/ui/card";
 import ShareButton from "@/components/buttons/share-button";
-import FavoriteButton from "@/components/favorite-button";
+import FavoriteButton from "@/components/buttons/favorite-button";
+import { getFavoriteById } from "@/server/user";
 
 export default async function AnimeInfo({ anime }: { anime: AnimeData }) {
   const getStatusBadge = (status: string) => {
@@ -53,6 +54,8 @@ export default async function AnimeInfo({ anime }: { anime: AnimeData }) {
       </Badge>
     );
   };
+
+  const favorite = await getFavoriteById(anime.mal_id);
 
   return (
     <section className="page-wrapper-layout !pt-10">
@@ -134,7 +137,18 @@ export default async function AnimeInfo({ anime }: { anime: AnimeData }) {
               )}
               <div className="mt-2 grid grid-cols-3 gap-2">
                 <ShareButton />
-                <FavoriteButton />
+                <FavoriteButton
+                  malId={anime.mal_id}
+                  title={anime.title}
+                  image={
+                    anime.images.webp.large_image_url ||
+                    anime.images.jpg.large_image_url ||
+                    anime.images.webp.image_url ||
+                    anime.images.jpg.image_url
+                  }
+                  type={"anime"}
+                  initialIsFavorite={favorite.success}
+                />
               </div>
             </div>
           </div>

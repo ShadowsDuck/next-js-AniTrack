@@ -7,6 +7,7 @@ import { HeroHeader } from "@/components/navbar/header";
 import FooterSection from "@/components/footer";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import ScrollToTop from "@/components/scroll-to-top";
+import { Toaster } from "react-hot-toast";
 
 const red = Red_Hat_Text({
   subsets: ["latin"],
@@ -36,6 +37,7 @@ export default function RootLayout({
               <ScrollToTop />
               <HeroHeader />
               {children}
+              <Toaster />
               <FooterSection />
             </ThemeProvider>
           </NuqsAdapter>
