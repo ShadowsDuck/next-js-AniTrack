@@ -318,7 +318,6 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
       animationConfig,
       maxCount = 3,
       modalPopover = false,
-      asChild = false,
       className,
       hideSelectAll = false,
       searchable = true,
@@ -642,16 +641,6 @@ export const MultiSelect = React.forwardRef<MultiSelectRef, MultiSelectProps>(
     const handleTogglePopover = () => {
       if (disabled) return;
       setIsPopoverOpen((prev) => !prev);
-    };
-
-    const clearExtraOptions = () => {
-      if (disabled) return;
-      const newSelectedValues = selectedValues.slice(
-        0,
-        responsiveSettings.maxCount,
-      );
-      setSelectedValues(newSelectedValues);
-      onValueChange(newSelectedValues);
     };
 
     const toggleAll = () => {

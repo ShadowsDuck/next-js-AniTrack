@@ -3,7 +3,7 @@ import CharacterInfo from "@/components/contents/character-details/character-inf
 import NotFoundPage from "@/components/not-found-page";
 import { fetchCharacterDetails } from "@/server/cartoon";
 
-export default async function MangaContentPage({
+export default async function CharacterContentPage({
   params,
 }: {
   params: Promise<{ characterId: string }>;

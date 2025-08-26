@@ -7,6 +7,7 @@ import { Button } from "../ui/button";
 import { addFavorite, removeFavorite } from "@/server/user";
 import { InsertFavorite } from "@/db/schema";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 interface FavoriteButtonProps extends Omit<InsertFavorite, "userId"> {
   initialIsFavorite: boolean;
@@ -22,6 +23,7 @@ export default function FavoriteButton({
   const [isFavorite, setIsFavorite] = useState(initialIsFavorite);
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const handleFavorite = async () => {
     try {
@@ -29,7 +31,10 @@ export default function FavoriteButton({
         const res = await removeFavorite(malId);
 
         if (!res.success) {
-          toast.error(res.message);
+          if (res.message && res.message !== "User not found") {
+            toast.error(res.message);
+          }
+          if (res.message === "User not found") return router.push("/sign-in");
           return;
         }
 
@@ -40,7 +45,10 @@ export default function FavoriteButton({
         const res = await addFavorite({ malId, title, image, type });
 
         if (!res.success) {
-          toast.error(res.message);
+          if (res.message && res.message !== "User not found") {
+            toast.error(res.message);
+          }
+          if (res.message === "User not found") return router.push("/sign-in");
           return;
         }
 

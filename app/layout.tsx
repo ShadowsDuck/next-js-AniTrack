@@ -14,7 +14,7 @@ const red = Red_Hat_Text({
 });
 
 export const metadata: Metadata = {
-  title: "Anime Tracker",
+  title: "AniTrack",
   description: "Track your favorite anime with ease",
 };
 
