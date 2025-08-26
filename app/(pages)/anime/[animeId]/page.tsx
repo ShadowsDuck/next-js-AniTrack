@@ -1,4 +1,4 @@
-import { BackButton } from "@/components/back-button";
+import { BackButton } from "@/components/buttons/back-button";
 import AnimeInfo from "@/components/contents/anime-details/anime-info";
 import CharactersSection from "@/components/contents/anime-details/characters-section";
 import EpisodesSection from "@/components/contents/anime-details/episodes-section";

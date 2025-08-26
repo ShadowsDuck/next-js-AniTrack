@@ -1,6 +1,6 @@
 import { BookOpen } from "lucide-react";
 import React, { Suspense } from "react";
-import ViewAllButton from "../view-all-button";
+import ViewAllButton from "../buttons/view-all-button";
 import HomeCardSection from "../home-card-section";
 import CardContentLoading from "../loadings/card-content-loading";
 

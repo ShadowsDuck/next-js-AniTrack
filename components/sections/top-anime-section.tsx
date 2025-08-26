@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import ViewAllButton from "../view-all-button";
+import ViewAllButton from "../buttons/view-all-button";
 import HomeAnimeLoading from "../loadings/home-anime-loading";
 import HomeCardSection from "../home-card-section";
 import { Flame } from "lucide-react";

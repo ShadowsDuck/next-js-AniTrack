@@ -1,5 +1,5 @@
-import { BackButton } from "@/components/back-button";
-import PeopleInfo from "@/components/contents/people-details/character-info";
+import { BackButton } from "@/components/buttons/back-button";
+import PeopleInfo from "@/components/contents/people-details/people-info";
 import NotFoundPage from "@/components/not-found-page";
 import { fetchPeopleDetails } from "@/server/cartoon";
 

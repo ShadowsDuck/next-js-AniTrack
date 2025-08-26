@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import ViewAllButton from "../view-all-button";
+import ViewAllButton from "../buttons/view-all-button";
 import { Users } from "lucide-react";
 import CardContentLoading from "../loadings/card-content-loading";
 import HomeCardSection from "../home-card-section";

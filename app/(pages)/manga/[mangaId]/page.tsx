@@ -1,4 +1,4 @@
-import { BackButton } from "@/components/back-button";
+import { BackButton } from "@/components/buttons/back-button";
 import BackgroundSection from "@/components/contents/manga-details/background-section";
 import ExternalSection from "@/components/contents/manga-details/external-section";
 import MangaInfo from "@/components/contents/manga-details/manga-info";

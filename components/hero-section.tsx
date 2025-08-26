@@ -1,8 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import React from "react";
-import Link from "next/link";
+import BrowseButton from "./buttons/browse-button";
 
 const HeroSection = () => {
   return (
@@ -40,20 +39,8 @@ const HeroSection = () => {
           className="animate-fade-slide mt-12 flex items-center justify-center gap-4 opacity-0"
           style={{ "--delay": "400ms" } as React.CSSProperties}
         >
-          <Button size="lg" className="rounded-xl px-6 text-sm">
-            <Link href="/anime">
-              <span className="text-nowrap">Browse Anime</span>
-            </Link>
-          </Button>
-          <Button
-            size="lg"
-            variant="secondary"
-            className="rounded-xl px-6 text-sm"
-          >
-            <Link href="/manga">
-              <span className="text-nowrap">Browse Manga</span>
-            </Link>
-          </Button>
+          <BrowseButton to={"/anime"} size="lg" />
+          <BrowseButton to={"/manga"} size="lg" variant="secondary" />
         </div>
       </div>
     </div>

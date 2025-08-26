@@ -17,7 +17,7 @@ import { formatDate } from "@/lib/format-date";
 import Link from "next/link";
 import { Status, StatusIndicator } from "@/components/ui/shadcn-io/status";
 import { Card } from "@/components/ui/card";
-import ShareButton from "@/components/share-button";
+import ShareButton from "@/components/buttons/share-button";
 import FavoriteButton from "@/components/favorite-button";
 import { RatingStars } from "../rating-stars";
 

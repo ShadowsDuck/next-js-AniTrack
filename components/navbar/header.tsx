@@ -12,7 +12,7 @@ const menuItems = [
   { name: "Anime", href: "/anime" },
   { name: "Manga", href: "/manga" },
   { name: "Character", href: "/character" },
-  { name: "Favorite", href: "/favorite" },
+  { name: "Favorites", href: "/favorites" },
 ];
 
 export const HeroHeader = async () => {
@@ -27,7 +27,7 @@ export const HeroHeader = async () => {
           "bg-background/50 fixed z-98 w-full border-b backdrop-blur-3xl",
         )}
       >
-        <div className="mx-auto max-w-[90rem] px-6 transition-all duration-300">
+        <div className="mx-auto max-w-[95rem] px-6 transition-all duration-300">
           <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
             {/* Logo Section */}
             <div className="flex items-center">

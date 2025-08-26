@@ -1,4 +1,4 @@
-import { BackButton } from "@/components/back-button";
+import { BackButton } from "@/components/buttons/back-button";
 import CharacterInfo from "@/components/contents/character-details/character-info";
 import NotFoundPage from "@/components/not-found-page";
 import { fetchCharacterDetails } from "@/server/cartoon";
