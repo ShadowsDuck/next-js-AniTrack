@@ -1,3 +1,7 @@
+/* export const dynamic: เป็นการตั้งค่า Route Segment Config ของ Next.js
+'force-dynamic': เป็นการบังคับให้หน้านี้ถูกเรนเดอร์ใหม่ทุกครั้งที่มีการเรียกเข้ามา (Server-Side Rendering) เสมอ และจะไม่ถูกสร้างเป็นหน้า Static ตอน build */
+export const dynamic = "force-dynamic";
+
 import { BackButton } from "@/components/buttons/back-button";
 import { Bookmark, BookOpen, Film, Heart } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";

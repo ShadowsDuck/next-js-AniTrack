@@ -1,9 +1,5 @@
-import { LoaderOne } from "@/components/ui/loader";
+import LoaderLoading from "@/components/loadings/loader-loading";
 
 export default function Loading() {
-  return (
-    <div className="page-wrapper-layout mx-auto flex min-h-100 justify-center !pt-32">
-      <LoaderOne />
-    </div>
-  );
+  return <LoaderLoading />;
 }

@@ -8,6 +8,7 @@ import FooterSection from "@/components/footer";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import ScrollToTop from "@/components/scroll-to-top";
 import { Toaster } from "react-hot-toast";
+import { Suspense } from "react";
 
 const red = Red_Hat_Text({
   subsets: ["latin"],
@@ -27,20 +28,22 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${red.className} antialiased`}>
         <QueryProvider>
-          <NuqsAdapter>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <ScrollToTop />
-              <HeroHeader />
-              {children}
-              <Toaster />
-              <FooterSection />
-            </ThemeProvider>
-          </NuqsAdapter>
+          <Suspense fallback={null}>
+            <NuqsAdapter>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+              >
+                <ScrollToTop />
+                <HeroHeader />
+                {children}
+                <Toaster />
+                <FooterSection />
+              </ThemeProvider>
+            </NuqsAdapter>
+          </Suspense>
         </QueryProvider>
       </body>
     </html>
