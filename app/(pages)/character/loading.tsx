@@ -1,5 +1,5 @@
-import ContentPageLoading from "@/components/loadings/content-page-loading";
+import LoaderLoading from "@/components/loadings/loader-loading";
 
 export default function Loading() {
-  return <ContentPageLoading />;
+  return <LoaderLoading />;
 }
